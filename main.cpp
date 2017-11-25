@@ -4,9 +4,11 @@
 #include "RegularRules.h"
 #include "ConsoleDisplay.h"
 
+#define SIZE 8
+
 int main() {
     Rules *rules = new RegularRules();
-    Board board(8);
+    Board board(SIZE);
     Display *display = new ConsoleDisplay();
     Player *player1 = new HumanPlayer(1);
     Player *player2 = new HumanPlayer(2);
