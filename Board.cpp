@@ -1,0 +1,211 @@
+#include "Board.h"
+
+Board::Board(int size) : size(size) {
+    //set the board.
+    arr = new int *[size];
+    for (int i = 0; i < size; i++) {
+        arr[i] = new int[size];
+    }
+    //set starting position.
+    arr[(size / 2) - 1][size / 2] = 1;
+    arr[size / 2][(size / 2) - 1] = 1;
+    arr[(size / 2) - 1][(size / 2) - 1] = 2;
+    arr[size / 2][size / 2] = 2;
+}
+
+Board::~Board() {
+    for (int i = 0; i < size; i++) {
+        delete[] arr[i];
+    }
+    delete[] arr;
+}
+
+int Board::getSize() const {
+    return size;
+}
+
+int Board::getSquare(int i, int j) const {
+    return arr[i][j];
+}
+
+void Board::put(int player, int a, int b) {
+    //put.
+    arr[a][b] = player;
+    int i, j, enemy = 3 - player;
+    //up.
+    i = a - 1;
+    j = b;
+    //if there is an enemy.
+    if (i >= 0 && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (i >= 0 && arr[i][j] == enemy) {
+            i--;
+        }
+        //if should flip.
+        if (i >= 0 && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //up right.
+    i = a - 1;
+    j = b + 1;
+    //if there is an enemy.
+    if (i >= 0 && j < size && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (i >= 0 && j < size && arr[i][j] == enemy) {
+            i--;
+            j++;
+        }
+        //if can put.
+        if (i >= 0 && j < size && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //right.
+    i = a;
+    j = b + 1;
+    //if there is an enemy.
+    if (j < size && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (j < size && arr[i][j] == enemy) {
+            j++;
+        }
+        //if can put.
+        if (j < size && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //down right.
+    i = a + 1;
+    j = b + 1;
+    //if there is an enemy.
+    if (i < size && j < size && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (i < size && j < size && arr[i][j] == enemy) {
+            i++;
+            j++;
+        }
+        //if can put.
+        if (i < size && j < size && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //down.
+    i = a + 1;
+    j = b;
+    //if there is an enemy.
+    if (i < size && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (i < size && arr[i][j] == enemy) {
+            i++;
+        }
+        //if can put.
+        if (i < size && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //down left.
+    i = a + 1;
+    j = b - 1;
+    //if there is an enemy.
+    if (i < size && j >= 0 && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (i < size && j >= 0 && arr[i][j] == enemy) {
+            i++;
+            j--;
+        }
+        //if can put.
+        if (i < size && j >= 0 && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //left.
+    i = a;
+    j = b - 1;
+    //if there is an enemy.
+    if (j >= 0 && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (j >= 0 && arr[i][j] == enemy) {
+            j--;
+        }
+        //if can put.
+        if (j >= 0 && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+    //up left.
+    i = a - 1;
+    j = b - 1;
+    //if there is an enemy.
+    if (i >= 0 && j >= 0 && arr[i][j] == enemy) {
+        //go to the last enemy.
+        while (i >= 0 && j >= 0 && arr[i][j] == enemy) {
+            i--;
+            j--;
+        }
+        //if can put.
+        if (i >= 0 && j >= 0 && arr[i][j] == player) {
+            flipBetween(player, a, b, i, j);
+        }
+    }
+}
+
+void Board::flipBetween(int player, int i1, int j1, int i2, int j2) {
+    //if same row.
+    if (i1 == i2) {
+        //if j1 is bigger.
+        if (j2 < j1) {
+            //swap.
+            swap(j1, j2);
+        }
+        //while can still move right.
+        while (j1 < j2) {
+            //flip and move.
+            arr[i1][j1] = player;
+            j1++;
+        }
+        //if same column.
+    } else if (j1 == j2) {
+        //if i1 is bigger.
+        if (i2 < i1) {
+            swap(i1, i2);
+        }
+        //while can still move down.
+        while (i1 < i2) {
+            //flip and move.
+            arr[i1][j1] = player;
+            i1++;
+        }
+    } else {
+        //make sure to move down.
+        if (i2 < i1) {
+            swap(i1, i2);
+            swap(j1, j2);
+        }
+        //if going right.
+        if (j1 < j2) {
+            //while can move right.
+            while (j1 < j2) {
+                //flip and move.
+                arr[i1][j1] = player;
+                i1++;
+                j1++;
+            }
+            //if going left
+        } else {
+            //while can move left.
+            while (j2 < j1) {
+                //flip and move.
+                arr[i1][j1] = player;
+                i1++;
+                j1--;
+            }
+        }
+    }
+}
+
+void Board::swap(int &a, int &b) const {
+    int temp = a;
+    a = b;
+    b = temp;
+}
