@@ -2,26 +2,31 @@
 #define EX2_PLAYER_H
 
 #include <vector>
+#include "Board.h"
+#include "Rules.h"
+#include "Display.h"
 
 class Player {
 public:
     /**
      * Constructor.
      * @param color The player color.
+     * @param board The game board.
+     * @param rules The game rules.
+     * @param display The display format.
      */
-    Player(int color);
+    Player(int color, Board &board, Rules *rules, Display *display);
 
     /**
-     * Play a move.
-     * @param moves The possible moves.
-     * @param choice The player's choice.
+     * Play one move with the player.
      */
-    virtual void playMove(std::vector<int> &moves, std::vector<int> &choice) = 0;
+    virtual void playMove() = 0;
 
     /**
-     * Wait for player response for no moves situation.
+     * Check if the player can play.
+     * @return 1 if can play, 0 if can't.
      */
-    virtual void noMoves() = 0;
+    int canPlay() const;
 
     /**
      * Get the player color.
@@ -31,6 +36,9 @@ public:
 
 protected:
     int color;
+    Board &board;
+    Rules *rules;
+    Display *display;
 };
 
 #endif //EX2_PLAYER_H

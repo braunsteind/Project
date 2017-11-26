@@ -36,21 +36,6 @@ private:
     Player *player2;
     Rules *rules;
     Display *display;
-
-    /**
-     * Check the input is valid.
-     * @param player The player.
-     * @param moves The possible moves.
-     * @param choice The player choice.
-     */
-    void checkInput(Player *player, std::vector<int> &moves, std::vector<int> &choice) const;
-
-    /**
-     * Check if the player can play.
-     * @param color The player color.
-     * @return 1 if can play, 0 if can't.
-     */
-    int canPlay(int color) const;
 };
 
 #endif //EX2_GAMERUNNER_H

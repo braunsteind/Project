@@ -9,11 +9,17 @@ using namespace std;
 
 class HumanPlayer : public Player {
 public:
-    HumanPlayer(int color);
+    HumanPlayer(int color, Board &board, Rules *rules, Display *display);
 
-    virtual void playMove(std::vector<int> &moves, std::vector<int> &choice);
+    virtual void playMove();
 
-    virtual void noMoves();
+private:
+    /**
+     * Get the player input and check the input is valid.
+     * @param moves The possible moves.
+     * @param choice The player's choice.
+     */
+    void getInput(std::vector<int> &moves, std::vector<int> &choice) const;
 };
 
 #endif //EX2_HUMANPLAYER_H

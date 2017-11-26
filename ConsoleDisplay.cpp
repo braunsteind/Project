@@ -2,6 +2,7 @@
 // Created by daniel on 11/11/17.
 //
 
+#include <limits>
 #include "ConsoleDisplay.h"
 
 void ConsoleDisplay::announceWinner(int winner) const {
@@ -14,6 +15,8 @@ void ConsoleDisplay::announceWinner(int winner) const {
             break;
         case 2:
             cout << endl << "O IS THE WINNER" << endl;
+            break;
+        default:
             break;
     }
 }
@@ -46,10 +49,12 @@ void ConsoleDisplay::showBoard(Board &board) const {
                 case 2:
                     cout << "O | ";
                     break;
+                default:
+                    break;
             }
         }
         cout << endl << "--";
-        for (int i = 0; i < board.getSize(); i++) {
+        for (int k = 0; k < board.getSize(); k++) {
             cout << "----";
         }
         cout << endl;
@@ -63,6 +68,7 @@ void ConsoleDisplay::noMoves(int color) const {
         cout << "O: It's your move." << endl;
     }
     cout << "No possible moves. Play passes back to the other player. Press any key to continue." << endl;
+    cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
 }
 
 void ConsoleDisplay::showMoves(int player, std::vector<int> &moves) const {
