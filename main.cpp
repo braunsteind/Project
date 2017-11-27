@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "HumanPlayer.h"
+#include "ComputerPlayer.h"
 #include "GameRunner.h"
 #include "RegularRules.h"
 #include "ConsoleDisplay.h"
@@ -11,7 +12,7 @@ int main() {
     Board board(SIZE);
     Display *display = new ConsoleDisplay();
     Player *player1 = new HumanPlayer(1, board, rules, display);
-    Player *player2 = new HumanPlayer(2, board, rules, display);
+    Player *player2 = new ComputerPlayer(2, board, rules, display);
     GameRunner game(board, player1, player2, rules, display);
     game.run();
     delete rules;

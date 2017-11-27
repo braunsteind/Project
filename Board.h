@@ -18,6 +18,12 @@ public:
     Board(int size);
 
     /**
+     * Copy constructor.
+     * @param board The object.
+     */
+    Board(const Board &board);
+
+    /**
      * Destructor.
      */
     ~Board();
@@ -43,13 +49,6 @@ public:
      * @param b The column.
      */
     void put(int player, int a, int b);
-
-    /**
-     * Check where the player can put.
-     * @param player The player.
-     * @param vec The results vector.
-     */
-    void whereCanPut(int player, std::vector<int> &vec) const;
 
 private:
     //the board size.

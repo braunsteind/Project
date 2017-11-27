@@ -1,24 +1,28 @@
 #include "Rules.h"
 
-int Rules::winner(const Board &board) {
-    int countPlayer1 = 0;
-    int countPlayer2 = 0;
+int Rules::winner(const Board &board) const {
+    int player1Score = getScore(1, board);
+    int player2Score = getScore(2, board);
+    //if player1 wins.
+    if (player1Score > player2Score) {
+        return 1;
+    } else if (player2Score > player1Score) { //if player 2 wins.
+        return 2;
+    }
+    //tie.
+    return 0;
+}
+
+int Rules::getScore(int player, const Board &board) const {
+    int score = 0;
     //loop on the board.
     for (int i = 0; i < board.getSize(); i++) {
         for (int j = 0; j < board.getSize(); j++) {
             //count the disks.
-            if (board.getSquare(i, j) == 1) {
-                countPlayer1++;
-            } else if (board.getSquare(i, j) == 2) {
-                countPlayer2++;
+            if (board.getSquare(i, j) == player) {
+                score++;
             }
         }
     }
-    //if player1 wins.
-    if (countPlayer1 > countPlayer2) {
-        return 1;
-    } else if (countPlayer2 > countPlayer1) {
-        return 2;
-    }
-    return 0;
+    return score;
 }

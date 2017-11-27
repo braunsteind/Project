@@ -13,6 +13,21 @@ Board::Board(int size) : size(size) {
     arr[size / 2][size / 2] = 2;
 }
 
+Board::Board(const Board &board) {
+    //copy the size;
+    size = board.getSize();
+    arr = new int *[size];
+    for (int i = 0; i < size; i++) {
+        arr[i] = new int[size];
+    }
+    //copy the arr.
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            arr[i][j] = board.getSquare(i, j);
+        }
+    }
+}
+
 Board::~Board() {
     for (int i = 0; i < size; i++) {
         delete[] arr[i];

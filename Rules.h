@@ -17,7 +17,14 @@ public:
      * Tell who the winner.
      * @return 1 - player1, 2 - player2, 0 - tie.
      */
-    int winner(const Board &board);
+    int winner(const Board &board) const;
+    /**
+     * Get the player score.
+     * @param player The player.
+     * @param board The game board.
+     * @return The score of the player.
+     */
+    virtual int getScore(int player, const Board &board) const;
 };
 
 #endif //EX2_RULES_H
