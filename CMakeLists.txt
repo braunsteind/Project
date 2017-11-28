@@ -3,5 +3,15 @@ project(ex2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp Board.cpp Board.h ConsoleDisplay.cpp ConsoleDisplay.h Display.cpp Display.h GameRunner.cpp GameRunner.h Player.cpp Player.h HumanPlayer.cpp HumanPlayer.h Rules.cpp Rules.h RegularRules.cpp RegularRules.h ComputerPlayer.cpp ComputerPlayer.h)
-add_executable(ex2 ${SOURCE_FILES} Board.cpp Board.h ConsoleDisplay.cpp ConsoleDisplay.h Display.cpp Display.h GameRunner.cpp GameRunner.h Player.cpp Player.h HumanPlayer.cpp HumanPlayer.h Rules.cpp Rules.h RegularRules.cpp RegularRules.h ComputerPlayer.cpp ComputerPlayer.h)
+add_subdirectory(lib/googletest-master)
+include_directories(lib/googletest-master/googletest/include)
+include_directories(lib/googletest-master/googlemock/include)
+
+set(SOURCE_FILES src/Board.cpp src/Board.h src/ConsoleDisplay.cpp src/ConsoleDisplay.h src/Display.cpp src/Display.h src/GameRunner.cpp src/GameRunner.h src/Player.cpp src/Player.h src/HumanPlayer.cpp src/HumanPlayer.h src/Rules.cpp src/Rules.h src/RegularRules.cpp src/RegularRules.h src/ComputerPlayer.cpp src/ComputerPlayer.h)
+set(TESTS_FILES tests/BoardTest.cpp)
+
+add_executable(ex2 ${SORCE_FILES} src/main.cpp src/Board.cpp src/Board.h src/ConsoleDisplay.cpp src/ConsoleDisplay.h src/Display.cpp src/Display.h src/GameRunner.cpp src/GameRunner.h src/Player.cpp src/Player.h src/HumanPlayer.cpp src/HumanPlayer.h src/Rules.cpp src/Rules.h src/RegularRules.cpp src/RegularRules.h src/ComputerPlayer.cpp src/ComputerPlayer.h)
+add_executable(tests tests/gtest_main.cpp ${TESTS_FILES} ${SOURCE_FILES})
+
+target_link_libraries(tests gtest gtest_main)
+add_test(tests tests)
