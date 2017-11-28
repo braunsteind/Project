@@ -9,7 +9,7 @@ using namespace std;
 
 class HumanPlayer : public Player {
 public:
-    HumanPlayer(int color, Board &board, Rules *rules, Display *display);
+    HumanPlayer(Color color, Board &board, Rules *rules, Display *display);
 
     virtual void playMove();
 

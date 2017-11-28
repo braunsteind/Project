@@ -4,6 +4,9 @@
 #include <vector>
 #include <iostream>
 
+enum Color {
+    Empty, Black, White
+};
 using namespace std;
 
 /**
@@ -40,7 +43,7 @@ public:
      * @param j The column.
      * @return The square.
      */
-    int getSquare(int i, int j) const;
+    Color getSquare(int i, int j) const;
 
     /**
      * Change the color between two points.
@@ -48,13 +51,13 @@ public:
      * @param a The row.
      * @param b The column.
      */
-    void put(int player, int a, int b);
+    void put(Color player, int a, int b);
 
 private:
     //the board size.
     int size;
-    //represents the players. 1 for X and 2 for O.
-    int **arr;
+    //represents the players.
+    Color **arr;
 
     /**
      * Swap between two ints.
@@ -71,7 +74,7 @@ private:
      * @param i2 Row of square2.
      * @param j2 Column of square2.
      */
-    void flipBetween(int player, int i1, int j1, int i2, int j2);
+    void flipBetween(Color player, int i1, int j1, int i2, int j2);
 };
 
 #endif //EX2_BOARD_H

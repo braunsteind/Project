@@ -1,10 +1,16 @@
 #include <climits>
 #include "ComputerPlayer.h"
 
-ComputerPlayer::ComputerPlayer(int color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
-                                                                                                 display) {}
+ComputerPlayer::ComputerPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
+                                                                                                   display) {}
 
 void ComputerPlayer::playMove() {
+    Color enemy;
+    if (color == Black) {
+        enemy = White;
+    } else {
+        enemy = Black;
+    }
     vector<int> moves, choice, opponentMoves;
     int computerBestScore = INT_MAX, computerBestMove;
     //get all possible moves.
@@ -24,7 +30,7 @@ void ComputerPlayer::playMove() {
             //copy the board to temp board.
             Board opponentTempBoard(computerTempBoard);
             //play move on the temp board.
-            opponentTempBoard.put(3 - color, opponentMoves[j], opponentMoves[j + 1]);
+            opponentTempBoard.put(enemy, opponentMoves[j], opponentMoves[j + 1]);
             //calculate the deference between the opponent score and the computer score.
             int deference = rules->getScore(3 - color, opponentTempBoard) - rules->getScore(color, opponentTempBoard);
             //if the deference is bigger than the opponent's best score.

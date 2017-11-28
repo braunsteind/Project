@@ -1,6 +1,6 @@
 #include "HumanPlayer.h"
 
-HumanPlayer::HumanPlayer(int color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
+HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                            display) {}
 
 void HumanPlayer::playMove() {

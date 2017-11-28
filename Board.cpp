@@ -2,23 +2,23 @@
 
 Board::Board(int size) : size(size) {
     //set the board.
-    arr = new int *[size];
+    arr = new Color *[size];
     for (int i = 0; i < size; i++) {
-        arr[i] = new int[size];
+        arr[i] = new Color[size];
     }
     //set starting position.
-    arr[(size / 2) - 1][size / 2] = 1;
-    arr[size / 2][(size / 2) - 1] = 1;
-    arr[(size / 2) - 1][(size / 2) - 1] = 2;
-    arr[size / 2][size / 2] = 2;
+    arr[(size / 2) - 1][size / 2] = Black;
+    arr[size / 2][(size / 2) - 1] = Black;
+    arr[(size / 2) - 1][(size / 2) - 1] = White;
+    arr[size / 2][size / 2] = White;
 }
 
 Board::Board(const Board &board) {
     //copy the size;
     size = board.getSize();
-    arr = new int *[size];
+    arr = new Color *[size];
     for (int i = 0; i < size; i++) {
-        arr[i] = new int[size];
+        arr[i] = new Color[size];
     }
     //copy the arr.
     for (int i = 0; i < size; i++) {
@@ -39,11 +39,11 @@ int Board::getSize() const {
     return size;
 }
 
-int Board::getSquare(int i, int j) const {
+Color Board::getSquare(int i, int j) const {
     return arr[i][j];
 }
 
-void Board::put(int player, int a, int b) {
+void Board::put(Color player, int a, int b) {
     //put.
     arr[a][b] = player;
     int i, j, enemy = 3 - player;
@@ -165,7 +165,7 @@ void Board::put(int player, int a, int b) {
     }
 }
 
-void Board::flipBetween(int player, int i1, int j1, int i2, int j2) {
+void Board::flipBetween(Color player, int i1, int j1, int i2, int j2) {
     //if same row.
     if (i1 == i2) {
         //if j1 is bigger.

@@ -5,7 +5,7 @@
 
 class ComputerPlayer : public Player {
 public:
-    ComputerPlayer(int color, Board &board, Rules *rules, Display *display);
+    ComputerPlayer(Color color, Board &board, Rules *rules, Display *display);
 
     virtual void playMove();
 };

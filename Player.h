@@ -15,7 +15,7 @@ public:
      * @param rules The game rules.
      * @param display The display format.
      */
-    Player(int color, Board &board, Rules *rules, Display *display);
+    Player(Color color, Board &board, Rules *rules, Display *display);
 
     /**
      * Play one move with the player.
@@ -35,7 +35,7 @@ public:
     int getColor() const;
 
 protected:
-    int color;
+    Color color;
     Board &board;
     Rules *rules;
     Display *display;
