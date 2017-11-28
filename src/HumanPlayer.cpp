@@ -1,5 +1,6 @@
 #include "HumanPlayer.h"
 
+
 HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                            display) {}
 

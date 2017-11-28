@@ -42,6 +42,11 @@ public:
      * @param column The column that played.
      */
     virtual void announceMove(int player, int row, int column) const = 0;
+
+    /**
+     * Running the menu before game starts.
+     */
+    virtual int runMenu() const = 0;
 };
 
 #endif //EX2_DISPLAY_H

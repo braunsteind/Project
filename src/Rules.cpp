@@ -3,6 +3,7 @@
 int Rules::winner(const Board &board) const {
     const int playerOne = 1;
     const int playerTwo = 2;
+    const int tie = 0;
     int player1Score = getScore(playerOne, board);
     int player2Score = getScore(playerTwo, board);
     //if player1 wins.
@@ -12,7 +13,7 @@ int Rules::winner(const Board &board) const {
         return playerTwo;
     }
     //tie.
-    return 0;
+    return tie;
 }
 
 int Rules::getScore(int player, const Board &board) const {

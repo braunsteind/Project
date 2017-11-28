@@ -5,6 +5,7 @@
 #include <limits>
 #include "ConsoleDisplay.h"
 
+
 void ConsoleDisplay::announceWinner(int winner) const {
     switch (winner) {
         case 0:
@@ -99,4 +100,30 @@ void ConsoleDisplay::announceMove(int player, int row, int column) const {
     } else if (player == 2) {
         cout << "O played (" << row << "," << column << ")" << endl;
     }
+}
+
+int ConsoleDisplay::runMenu() const {
+    const int ai = 1;
+    const int human = 2;
+    int choice = 0;
+    //printing menu
+    cout << "Please select one of the options:" << endl;
+    cout << "Press 1 for playing againt AI" << endl;
+    cout << "Press 2 for playing against Human player" << endl;
+
+    //ensuring valid input
+    while (choice != ai && choice != human) {
+        cin >> choice;
+        if (!choice || choice < ai || choice > human) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout << "Illegal choice." << endl;
+            cout << "Press 1 for AI or 2 for Human player" << endl;
+        }
+    }
+    //return the wanted player
+    if (choice == human) {
+        return human;
+    }
+    return ai;
 }

@@ -3,7 +3,11 @@
 //
 
 #include <gtest/gtest.h>
+#include "../src/Board.h"
 
-TEST(Board, DISABLE_HandlesPositiveInput) {
-    EXPECT_EQ(1,1);
+TEST(Board, BoardSizeTest) {
+    Board b(8);
+    EXPECT_EQ(b.getSize(), 8);
+    Board c(2);
+    EXPECT_EQ(c.getSize(), 2);
 }

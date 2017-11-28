@@ -1,6 +1,3 @@
-//
-// Daniel Braunstein 312510167.
-//
 
 #include "GameRunner.h"
 
@@ -11,8 +8,9 @@ GameRunner::GameRunner(Board &board, Player *player1, Player *player2, Rules *ru
                                                                                                          display(display) {}
 
 void GameRunner::run() {
+    const int ableToPlay = 1;
     //play while at least one player can.
-    while (player1->canPlay() == 1 || player2->canPlay() == 1) {
+    while (player1->canPlay() == ableToPlay || player2->canPlay() == ableToPlay) {
         //play with player1.
         player1->playMove();
         //play with player2.

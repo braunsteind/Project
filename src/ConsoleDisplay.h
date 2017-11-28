@@ -16,6 +16,8 @@ public:
     virtual void invalidInput() const;
 
     virtual void announceMove(int player, int row, int column) const;
+
+    virtual int runMenu() const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H
