@@ -14,6 +14,8 @@ public:
     virtual void showMoves(int player, std::vector<int> &moves) const;
 
     virtual void invalidInput() const;
+
+    virtual void announceMove(int player, int row, int column) const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

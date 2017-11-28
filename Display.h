@@ -34,6 +34,14 @@ public:
      * Announce the input is invalid.
      */
     virtual void invalidInput() const = 0;
+
+    /**
+     * Announce the move.
+     * @param player The player.
+     * @param row The row that played.
+     * @param column The column that played.
+     */
+    virtual void announceMove(int player, int row, int column) const = 0;
 };
 
 #endif //EX2_DISPLAY_H

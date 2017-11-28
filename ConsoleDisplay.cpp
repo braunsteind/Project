@@ -22,7 +22,7 @@ void ConsoleDisplay::announceWinner(int winner) const {
 }
 
 void ConsoleDisplay::showBoard(Board &board) const {
-    cout << endl << "Current board:" << endl << endl;
+    cout << endl << "Current board:" << endl;
     cout << " | ";
     for (int i = 1; i <= board.getSize(); i++) {
         cout << i << " | ";
@@ -74,9 +74,12 @@ void ConsoleDisplay::noMoves(int color) const {
 void ConsoleDisplay::showMoves(int player, std::vector<int> &moves) const {
     if (player == 1) {
         cout << "X: It's your move." << endl << "Your possible moves: ";
-    } else {
+    } else if (player == 2) {
         cout << "O: It's your move." << endl << "Your possible moves: ";
+    } else {
+        return;
     }
+    //print the possible moves.
     for (int i = 0; i < moves.size() - 2; i = i + 2) {
         cout << "(" << moves[i] + 1 << "," << moves[i + 1] + 1 << "), ";
     }
@@ -88,4 +91,12 @@ void ConsoleDisplay::showMoves(int player, std::vector<int> &moves) const {
 
 void ConsoleDisplay::invalidInput() const {
     cout << "Invalid input, please enter your move (row col): ";
+}
+
+void ConsoleDisplay::announceMove(int player, int row, int column) const {
+    if (player == 1) {
+        cout << "X played (" << row << "," << column << ")" << endl;
+    } else if (player == 2) {
+        cout << "O played (" << row << "," << column << ")" << endl;
+    }
 }
