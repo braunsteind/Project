@@ -8,12 +8,14 @@ int Player::getColor() const {
 }
 
 int Player::canPlay() const {
+    const int noMoves = 0;
+    const int hasMoves = 1;
     std::vector<int> moves;
     //check where the player can put.
     rules->whereCanPut(board, color, moves);
     //if can't play.
-    if (moves.size() <= 0) {
-        return 0;
+    if (moves.size() <= noMoves) {
+        return noMoves;
     }
-    return 1;
+    return hasMoves;
 }

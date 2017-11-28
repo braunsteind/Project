@@ -4,6 +4,6 @@
 
 #include <gtest/gtest.h>
 
-TEST(Board, HandlesPositiveInput) {
+TEST(Board, DISABLE_HandlesPositiveInput) {
     EXPECT_EQ(1,1);
 }

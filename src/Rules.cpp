@@ -1,13 +1,15 @@
 #include "Rules.h"
 
 int Rules::winner(const Board &board) const {
-    int player1Score = getScore(1, board);
-    int player2Score = getScore(2, board);
+    const int playerOne = 1;
+    const int playerTwo = 2;
+    int player1Score = getScore(playerOne, board);
+    int player2Score = getScore(playerTwo, board);
     //if player1 wins.
     if (player1Score > player2Score) {
-        return 1;
+        return playerOne;
     } else if (player2Score > player1Score) { //if player 2 wins.
-        return 2;
+        return playerTwo;
     }
     //tie.
     return 0;
