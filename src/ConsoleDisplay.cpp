@@ -15,7 +15,7 @@ void ConsoleDisplay::announceWinner(Color winner) const {
             cout << endl << "O IS THE WINNER" << endl;
             break;
         default:
-            cout << endl << "O IS THE WINNER" << endl;
+            cout << endl << "TIE" << endl;
     }
 }
 

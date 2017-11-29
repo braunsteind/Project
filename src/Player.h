@@ -19,14 +19,15 @@ public:
 
     /**
      * Play one move with the player.
+     * @return The chosen move (vec[0] the row vec[1] the column). If couldn't play return empty vector.
      */
-    virtual void playMove() = 0;
+    virtual vector<int> playMove() = 0;
 
     /**
      * Check if the player can play.
-     * @return 1 if can play, 0 if can't.
+     * @return True if can play, false if can't.
      */
-    int canPlay() const;
+    bool canPlay() const;
 
     /**
      * Get the player color.

@@ -13,9 +13,7 @@ TEST(RegularRules, scoreTest) {
     EXPECT_EQ(r.getScore(Black,b),r.getScore(White,b));
     b.put(Black,0,0);
     EXPECT_EQ(r.getScore(Black,b),3);  //THIS SHOULD WORK
-    EXPECT_EQ(r.getScore(Black,b),4);  //THIS SHOULD NOT WORK, BUT IT WORKS
-
-
+//    EXPECT_EQ(r.getScore(Black,b),4);  //THIS SHOULD NOT WORK, BUT IT WORKS
 }
 
 TEST(RegularRules, winnerTest) {

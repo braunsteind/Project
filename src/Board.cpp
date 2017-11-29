@@ -6,6 +6,12 @@ Board::Board(int size) : size(size) {
     for (int i = 0; i < size; i++) {
         arr[i] = new Color[size];
     }
+    //set the board to empty.
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            arr[i][j] = Empty;
+        }
+    }
     //set starting position.
     arr[(size / 2) - 1][size / 2] = Black;
     arr[size / 2][(size / 2) - 1] = Black;
@@ -217,6 +223,22 @@ void Board::flipBetween(Color player, int i1, int j1, int i2, int j2) {
             }
         }
     }
+}
+
+bool Board::operator==(const Board &board) const {
+    //check the size is the same.
+    if (size != board.getSize()) {
+        return false;
+    }
+    //check the matrix are the same.
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (arr[i][j] != board.getSquare(i, j)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 void Board::swap(int &a, int &b) const {

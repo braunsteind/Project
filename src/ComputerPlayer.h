@@ -7,7 +7,7 @@ class ComputerPlayer : public Player {
 public:
     ComputerPlayer(Color color, Board &board, Rules *rules, Display *display);
 
-    virtual void playMove();
+    virtual vector<int> playMove();
 };
 
 #endif //EX2_COMPUTERPLAYER_H

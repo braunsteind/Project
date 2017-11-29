@@ -1,21 +1,19 @@
 #include "Player.h"
 
 Player::Player(Color color, Board &board, Rules *rules, Display *display) : color(color), board(board), rules(rules),
-                                                                          display(display) {}
+                                                                            display(display) {}
 
 Color Player::getColor() const {
     return color;
 }
 
-int Player::canPlay() const {
-    const int noMoves = 0;
-    const int hasMoves = 1;
+bool Player::canPlay() const {
     std::vector<int> moves;
     //check where the player can put.
     rules->whereCanPut(board, color, moves);
     //if can't play.
-    if (moves.size() <= noMoves) {
-        return noMoves;
+    if (moves.empty()) {
+        return false;
     }
-    return hasMoves;
+    return true;
 }

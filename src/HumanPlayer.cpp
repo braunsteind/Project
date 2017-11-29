@@ -4,7 +4,7 @@
 HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                              display) {}
 
-void HumanPlayer::playMove() {
+vector<int> HumanPlayer::playMove() {
     vector<int> moves, choice;
     //show board.
     display->showBoard(board);
@@ -13,7 +13,7 @@ void HumanPlayer::playMove() {
     //if no moves for player1.
     if (moves.empty()) {
         display->noMoves(color);
-        return;
+        return choice;
     }
     //show moves.
     display->showMoves(color, moves);
@@ -21,6 +21,7 @@ void HumanPlayer::playMove() {
     getInput(moves, choice);
     //play move.
     board.put(color, choice[0], choice[1]);
+    return choice;
 }
 
 void HumanPlayer::getInput(std::vector<int> &moves, std::vector<int> &choice) const {

@@ -53,6 +53,8 @@ public:
      */
     void put(Color player, int a, int b);
 
+    bool operator==(const Board &board) const;
+
 private:
     //the board size.
     int size;

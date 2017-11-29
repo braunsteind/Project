@@ -4,7 +4,7 @@
 ComputerPlayer::ComputerPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                                    display) {}
 
-void ComputerPlayer::playMove() {
+vector<int> ComputerPlayer::playMove() {
     Color enemy;
     if (color == Black) {
         enemy = White;
@@ -50,10 +50,14 @@ void ComputerPlayer::playMove() {
     //if no moves.
     if (computerBestMove == -1) {
         display->announceNoMove(color);
-        return;
+        return choice;
     }
+    //get the best move.
+    choice.push_back(moves[computerBestMove]);
+    choice.push_back(moves[computerBestMove + 1]);
     //play the computer best move.
-    board.put(color, moves[computerBestMove], moves[computerBestMove + 1]);
+    board.put(color, choice[0], choice[1]);
     //return the computer move.
     display->announceMove(color, moves[computerBestMove] + 1, moves[computerBestMove + 1] + 1);
+    return choice;
 }

@@ -5,14 +5,12 @@
 #include "RegularRules.h"
 #include "ConsoleDisplay.h"
 
-#define SIZE 8
-
 using namespace std;
 
 int main() {
-
+    const int size = 8;
     Rules *rules = new RegularRules();
-    Board board(SIZE);
+    Board board(size);
     Display *display = new ConsoleDisplay();
     Player *player1 = new HumanPlayer(Black, board, rules, display);
     Player *player2;

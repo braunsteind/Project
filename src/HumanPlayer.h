@@ -11,7 +11,7 @@ class HumanPlayer : public Player {
 public:
     HumanPlayer(Color color, Board &board, Rules *rules, Display *display);
 
-    virtual void playMove();
+    virtual vector<int> playMove();
 
 private:
     /**
