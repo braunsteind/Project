@@ -3,7 +3,7 @@
 Player::Player(Color color, Board &board, Rules *rules, Display *display) : color(color), board(board), rules(rules),
                                                                           display(display) {}
 
-int Player::getColor() const {
+Color Player::getColor() const {
     return color;
 }
 

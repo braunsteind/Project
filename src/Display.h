@@ -3,13 +3,17 @@
 
 #include "Board.h"
 
+enum Mode {
+    Computer = 1, Human
+};
+
 class Display {
 public:
     /**
      * Announce the winner.
-     * @param winner 1 for player1, 2 for player2, any other number for tie.
+     * @param winner The winning player.
      */
-    virtual void announceWinner(int winner) const = 0;
+    virtual void announceWinner(Color winner) const = 0;
 
     /**
      * Show the board.
@@ -21,14 +25,14 @@ public:
      * Announce that there is no possible moves.
      * @param color The player color.
      */
-    virtual void noMoves(int color) const = 0;
+    virtual void noMoves(Color color) const = 0;
 
     /**
      * Show the player possible moves.
-     * @param player 1 for player1, other for player2.
+     * @param player The player.
      * @param moves The player possible moves.
      */
-    virtual void showMoves(int player, std::vector<int> &moves) const = 0;
+    virtual void showMoves(Color player, std::vector<int> &moves) const = 0;
 
     /**
      * Announce the input is invalid.
@@ -41,12 +45,19 @@ public:
      * @param row The row that played.
      * @param column The column that played.
      */
-    virtual void announceMove(int player, int row, int column) const = 0;
+    virtual void announceMove(Color player, int row, int column) const = 0;
 
     /**
-     * Running the menu before game starts.
+     * Announce the player has no moves.
+     * @param player The player.
      */
-    virtual int runMenu() const = 0;
+    virtual void announceNoMove(Color player) const = 0;
+
+    /**
+     * Running the menu.
+     * @return The type of player we play against.
+     */
+    virtual Mode runMenu() const = 0;
 };
 
 #endif //EX2_DISPLAY_H

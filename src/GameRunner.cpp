@@ -9,6 +9,7 @@ GameRunner::GameRunner(Board &board, Player *player1, Player *player2, Rules *ru
 
 void GameRunner::run() {
     const int ableToPlay = 1;
+    vector<int> playedMove;
     //play while at least one player can.
     while (player1->canPlay() == ableToPlay || player2->canPlay() == ableToPlay) {
         //play with player1.
@@ -19,6 +20,6 @@ void GameRunner::run() {
     //print the board.
     display->showBoard(board);
     //check for winner.
-    int winner = rules->winner(board);
+    Color winner = rules->winner(board);
     display->announceWinner(winner);
 }

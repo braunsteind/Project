@@ -6,19 +6,16 @@
 #include "ConsoleDisplay.h"
 
 
-void ConsoleDisplay::announceWinner(int winner) const {
+void ConsoleDisplay::announceWinner(Color winner) const {
     switch (winner) {
-        case 0:
-            cout << endl << "Tie" << endl;
-            break;
-        case 1:
+        case Black:
             cout << endl << "X IS THE WINNER" << endl;
             break;
-        case 2:
+        case White:
             cout << endl << "O IS THE WINNER" << endl;
             break;
         default:
-            break;
+            cout << endl << "O IS THE WINNER" << endl;
     }
 }
 
@@ -41,13 +38,13 @@ void ConsoleDisplay::showBoard(Board &board) const {
         for (int j = 0; j < board.getSize(); j++) {
             //check if the spot is marked.
             switch (board.getSquare(i, j)) {
-                case 0:
+                case Empty:
                     cout << "  | ";
                     break;
-                case 1:
+                case Black:
                     cout << "X | ";
                     break;
-                case 2:
+                case White:
                     cout << "O | ";
                     break;
                 default:
@@ -62,20 +59,22 @@ void ConsoleDisplay::showBoard(Board &board) const {
     }
 }
 
-void ConsoleDisplay::noMoves(int color) const {
-    if (color == 1) {
+void ConsoleDisplay::noMoves(Color color) const {
+    if (color == Black) {
         cout << "X: It's your move." << endl;
-    } else {
+    } else if (color == White) {
         cout << "O: It's your move." << endl;
+    } else {
+        return;
     }
     cout << "No possible moves. Play passes back to the other player. Press any key to continue." << endl;
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
 }
 
-void ConsoleDisplay::showMoves(int player, std::vector<int> &moves) const {
-    if (player == 1) {
+void ConsoleDisplay::showMoves(Color player, std::vector<int> &moves) const {
+    if (player == Black) {
         cout << "X: It's your move." << endl << "Your possible moves: ";
-    } else if (player == 2) {
+    } else if (player == White) {
         cout << "O: It's your move." << endl << "Your possible moves: ";
     } else {
         return;
@@ -94,36 +93,41 @@ void ConsoleDisplay::invalidInput() const {
     cout << "Invalid input, please enter your move (row col): ";
 }
 
-void ConsoleDisplay::announceMove(int player, int row, int column) const {
-    if (player == 1) {
+void ConsoleDisplay::announceMove(Color player, int row, int column) const {
+    if (player == Black) {
         cout << "X played (" << row << "," << column << ")" << endl;
-    } else if (player == 2) {
+    } else if (player == White) {
         cout << "O played (" << row << "," << column << ")" << endl;
     }
 }
 
-int ConsoleDisplay::runMenu() const {
-    const int ai = 1;
-    const int human = 2;
+void ConsoleDisplay::announceNoMove(Color player) const {
+    if (player == Black) {
+        cout << "X has no moves" << endl;
+    } else if (player == White) {
+        cout << "O has no moves" << endl;
+    }
+}
+
+Mode ConsoleDisplay::runMenu() const {
     int choice = 0;
     //printing menu
     cout << "Please select one of the options:" << endl;
-    cout << "Press 1 for playing againt AI" << endl;
-    cout << "Press 2 for playing against Human player" << endl;
-
-    //ensuring valid input
-    while (choice != ai && choice != human) {
+    cout << "Press 1 for playing against the computer" << endl;
+    cout << "Press 2 for playing against other player" << endl;
+    //while the input is not valid.
+    while (choice != Computer && choice != Human) {
+        //get input.
         cin >> choice;
-        if (!choice || choice < ai || choice > human) {
+        //if the input is not valid.
+        if (choice != Computer && choice != Human) {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            //print illegal input message.
             cout << "Illegal choice." << endl;
-            cout << "Press 1 for AI or 2 for Human player" << endl;
+            cout << "Press 1 for playing against the computer or 2 for playing against other player" << endl;
         }
     }
     //return the wanted player
-    if (choice == human) {
-        return human;
-    }
-    return ai;
+    return static_cast<Mode>(choice);
 }

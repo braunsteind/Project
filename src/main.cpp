@@ -4,25 +4,26 @@
 #include "GameRunner.h"
 #include "RegularRules.h"
 #include "ConsoleDisplay.h"
-#include <iostream>
 
 #define SIZE 8
-#define AI 1
 
 using namespace std;
 
 int main() {
-    
+
     Rules *rules = new RegularRules();
     Board board(SIZE);
     Display *display = new ConsoleDisplay();
     Player *player1 = new HumanPlayer(Black, board, rules, display);
     Player *player2;
-    int playerType = display->runMenu();
-    if (playerType == AI) {
+    Mode playerMode = display->runMenu();
+    //if computer player mode.
+    if (playerMode == Computer) {
         player2 = new ComputerPlayer(White, board, rules, display);
-    } else {
+    } else if (playerMode == Human) { //if human player mode.
         player2 = new HumanPlayer(White, board, rules, display);
+    } else { //if illegal playerMode.
+        return 0;
     }
     GameRunner game(board, player1, player2, rules, display);
     game.run();
@@ -30,7 +31,7 @@ int main() {
     delete player1;
     delete player2;
     delete display;
-    return 0; 
+    return 0;
     /*
     Board b(8);
     RegularRules r;

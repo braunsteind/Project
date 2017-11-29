@@ -12,7 +12,7 @@ void ComputerPlayer::playMove() {
         enemy = Black;
     }
     vector<int> moves, choice, opponentMoves;
-    int computerBestScore = INT_MAX, computerBestMove;
+    int computerBestScore = INT_MAX, computerBestMove = -1;
     //get all possible moves.
     rules->whereCanPut(board, color, moves);
     //loop on the computer moves.
@@ -47,8 +47,13 @@ void ComputerPlayer::playMove() {
             computerBestMove = i;
         }
     }
+    //if no moves.
+    if (computerBestMove == -1) {
+        display->announceNoMove(color);
+        return;
+    }
     //play the computer best move.
     board.put(color, moves[computerBestMove], moves[computerBestMove + 1]);
-    //announce the computer move.
+    //return the computer move.
     display->announceMove(color, moves[computerBestMove] + 1, moves[computerBestMove + 1] + 1);
 }

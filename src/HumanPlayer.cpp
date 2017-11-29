@@ -2,17 +2,16 @@
 
 
 HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
-                                                                                           display) {}
+                                                                                             display) {}
 
 void HumanPlayer::playMove() {
-    const int noMoves = 0;
     vector<int> moves, choice;
     //show board.
     display->showBoard(board);
     //get the player's possible moves.
     rules->whereCanPut(board, color, moves);
     //if no moves for player1.
-    if (moves.size() <= noMoves) {
+    if (moves.empty()) {
         display->noMoves(color);
         return;
     }

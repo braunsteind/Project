@@ -30,9 +30,9 @@ public:
 
     /**
      * Get the player color.
-     * @return 1 for X, 2 for O.
+     * @return The player color.
      */
-    int getColor() const;
+    Color getColor() const;
 
 protected:
     Color color;

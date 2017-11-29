@@ -15,9 +15,9 @@ public:
 
     /**
      * Tell who the winner.
-     * @return 1 - player1, 2 - player2, 0 - tie.
+     * @return The winner color.
      */
-    int winner(const Board &board) const;
+    Color winner(const Board &board) const;
     /**
      * Get the player score.
      * @param player The player.

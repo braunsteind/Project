@@ -5,19 +5,21 @@
 
 class ConsoleDisplay : public Display {
 public:
-    virtual void announceWinner(int winner) const;
+    virtual void announceWinner(Color winner) const;
 
     virtual void showBoard(Board &board) const;
 
-    virtual void noMoves(int color) const;
+    virtual void noMoves(Color color) const;
 
-    virtual void showMoves(int player, std::vector<int> &moves) const;
+    virtual void showMoves(Color player, std::vector<int> &moves) const;
 
     virtual void invalidInput() const;
 
-    virtual void announceMove(int player, int row, int column) const;
+    virtual void announceMove(Color player, int row, int column) const;
 
-    virtual int runMenu() const;
+    virtual void announceNoMove(Color player) const;
+
+    virtual Mode runMenu() const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H
