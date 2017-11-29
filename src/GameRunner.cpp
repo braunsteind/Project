@@ -8,10 +8,9 @@ GameRunner::GameRunner(Board &board, Player *player1, Player *player2, Rules *ru
                                                                                                          display(display) {}
 
 void GameRunner::run() {
-    const int ableToPlay = 1;
     vector<int> playedMove;
     //play while at least one player can.
-    while (player1->canPlay() == ableToPlay || player2->canPlay() == ableToPlay) {
+    while (player1->canPlay() || player2->canPlay()) {
         //play with player1.
         player1->playMove();
         //play with player2.

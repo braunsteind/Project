@@ -1,6 +1,7 @@
 #include "RegularRules.h"
 
-void RegularRules::whereCanPut(const Board &board, int color, std::vector<int> &moves) const {
+vector<int> RegularRules::whereCanPut(const Board &board, Color color) const {
+    vector<int> moves;
     //loop on each square
     for (int i = 0; i < board.getSize(); i++) {
         for (int j = 0; j < board.getSize(); j++) {
@@ -12,6 +13,7 @@ void RegularRules::whereCanPut(const Board &board, int color, std::vector<int> &
         }
     }
     removeDouble(moves);
+    return moves;
 }
 
 void RegularRules::checkSurrounding(const Board &board, int player, int a, int b, std::vector<int> &moves) const {

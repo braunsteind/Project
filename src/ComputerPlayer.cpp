@@ -14,7 +14,7 @@ vector<int> ComputerPlayer::playMove() {
     vector<int> moves, choice, opponentMoves;
     int computerBestScore = INT_MAX, computerBestMove = -1;
     //get all possible moves.
-    rules->whereCanPut(board, color, moves);
+    moves = rules->whereCanPut(board, color);
     //loop on the computer moves.
     for (int i = 0; i < moves.size(); i = i + 2) {
         //copy to board to temp board.
@@ -22,7 +22,7 @@ vector<int> ComputerPlayer::playMove() {
         //play move on the temp board.
         computerTempBoard.put(color, moves[i], moves[i + 1]);
         //check where the opponent can put.
-        rules->whereCanPut(computerTempBoard, 3 - color, opponentMoves);
+        opponentMoves = rules->whereCanPut(computerTempBoard, enemy);
         //set the opponent best score to min.
         int opponentBestScore = INT_MIN;
         //loop on the opponent moves.

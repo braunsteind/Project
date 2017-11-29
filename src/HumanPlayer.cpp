@@ -9,7 +9,7 @@ vector<int> HumanPlayer::playMove() {
     //show board.
     display->showBoard(board);
     //get the player's possible moves.
-    rules->whereCanPut(board, color, moves);
+    moves = rules->whereCanPut(board, color);
     //if no moves for player1.
     if (moves.empty()) {
         display->noMoves(color);

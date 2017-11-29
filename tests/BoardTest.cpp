@@ -59,6 +59,10 @@ TEST(Board, CopyConstructorTest) {
 
 TEST(Board, GetSquareTest) {
     Board b(10);
+    EXPECT_EQ(b.getSquare(5, 5), White);
+    EXPECT_EQ(b.getSquare(0, 0), Empty);
     b.put(Black, 1, 1);
     EXPECT_EQ(b.getSquare(1, 1), Black);
+    b.put(White, 2, 2);
+    EXPECT_EQ(b.getSquare(2, 2), White);
 }

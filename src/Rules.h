@@ -9,9 +9,9 @@ public:
      * Check where the player can put.
      * @param board The game board.
      * @param color The player color.
-     * @param moves The answer vector.
+     * @return The answer vector of possible moves.
      */
-    virtual void whereCanPut(const Board &board, int color, std::vector<int> &moves) const = 0;
+    virtual vector<int> whereCanPut(const Board &board, Color color) const = 0;
 
     /**
      * Tell who the winner.

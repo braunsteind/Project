@@ -10,7 +10,7 @@ Color Player::getColor() const {
 bool Player::canPlay() const {
     std::vector<int> moves;
     //check where the player can put.
-    rules->whereCanPut(board, color, moves);
+    moves = rules->whereCanPut(board, color);
     //if can't play.
     if (moves.empty()) {
         return false;
