@@ -4,35 +4,35 @@
 ComputerPlayer::ComputerPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                                    display) {}
 
-vector<int> ComputerPlayer::playMove() {
+Point ComputerPlayer::playMove() {
     Color enemy;
     if (color == Black) {
         enemy = White;
     } else {
         enemy = Black;
     }
-    vector<int> moves, choice, opponentMoves;
+    vector<Point> moves, opponentMoves;
     int computerBestScore = INT_MAX, computerBestMove = -1;
     //get all possible moves.
     moves = rules->whereCanPut(board, color);
     //loop on the computer moves.
-    for (int i = 0; i < moves.size(); i = i + 2) {
+    for (int i = 0; i < moves.size(); i++) {
         //copy to board to temp board.
         Board computerTempBoard(board);
         //play move on the temp board.
-        computerTempBoard.put(color, moves[i], moves[i + 1]);
+        computerTempBoard.put(color, moves[i].getRow(), moves[i].getColumn());
         //check where the opponent can put.
         opponentMoves = rules->whereCanPut(computerTempBoard, enemy);
         //set the opponent best score to min.
         int opponentBestScore = INT_MIN;
         //loop on the opponent moves.
-        for (int j = 0; j < opponentMoves.size(); j = j + 2) {
+        for (int j = 0; j < opponentMoves.size(); j++) {
             //copy the board to temp board.
             Board opponentTempBoard(computerTempBoard);
             //play move on the temp board.
-            opponentTempBoard.put(enemy, opponentMoves[j], opponentMoves[j + 1]);
+            opponentTempBoard.put(enemy, opponentMoves[j].getRow(), opponentMoves[j].getColumn());
             //calculate the deference between the opponent score and the computer score.
-            int deference = rules->getScore(3 - color, opponentTempBoard) - rules->getScore(color, opponentTempBoard);
+            int deference = rules->getScore(enemy, opponentTempBoard) - rules->getScore(color, opponentTempBoard);
             //if the deference is bigger than the opponent's best score.
             if (deference > opponentBestScore) {
                 //update the opponent's best score.
@@ -50,14 +50,13 @@ vector<int> ComputerPlayer::playMove() {
     //if no moves.
     if (computerBestMove == -1) {
         display->announceNoMove(color);
-        return choice;
+        return Point(-1, -1);
     }
     //get the best move.
-    choice.push_back(moves[computerBestMove]);
-    choice.push_back(moves[computerBestMove + 1]);
+    Point choice(moves[computerBestMove]);
     //play the computer best move.
-    board.put(color, choice[0], choice[1]);
+    board.put(color, choice.getRow(), choice.getColumn());
     //return the computer move.
-    display->announceMove(color, moves[computerBestMove] + 1, moves[computerBestMove + 1] + 1);
+    display->announceMove(color, choice.getRow() + 1, choice.getColumn() + 1);
     return choice;
 }

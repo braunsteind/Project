@@ -1,13 +1,9 @@
 #ifndef EX2_BOARD_H
 #define EX2_BOARD_H
 
-#include <vector>
-#include <iostream>
-
 enum Color {
     Empty, Black, White
 };
-using namespace std;
 
 /**
  * The game board.
@@ -53,6 +49,11 @@ public:
      */
     void put(Color player, int a, int b);
 
+    /**
+     * Equals override.
+     * @param board The other board.
+     * @return True if euqals, false if not.
+     */
     bool operator==(const Board &board) const;
 
 private:

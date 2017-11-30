@@ -4,33 +4,31 @@
 #include "../src/ConsoleDisplay.h"
 
 TEST(ComputerPlayer, PlayMoveTest) {
-    vector<int> choice, answer;
+    Point choice, answer;
     RegularRules rules;
     ConsoleDisplay display;
-    Board board1(8);
-    ComputerPlayer computerPlayer(White, board1, &rules, &display);
+    Board board(8);
+    ComputerPlayer computerPlayer(White, board, &rules, &display);
     //play for the player.
-    board1.put(Black, 5, 4);
+    board.put(Black, 5, 4);
     //the computer move.
     choice = computerPlayer.playMove();
     //the right move.
-    answer.insert(answer.begin(), {3, 5});
+    answer.setPoint(3, 5);
     EXPECT_EQ(answer, choice);
     //play for the player.
-    board1.put(Black, 2, 3);
+    board.put(Black, 2, 3);
     //the computer move.
     choice = computerPlayer.playMove();
     //the right move.
-    answer.clear();
-    answer.insert(answer.begin(), {6, 4});
+    answer.setPoint(6, 4);
     EXPECT_EQ(answer, choice);
     //play for the player.
-    board1.put(Black, 4, 5);
+    board.put(Black, 4, 5);
     //the computer move.
     choice = computerPlayer.playMove();
     //the right move.
-    answer.clear();
-    answer.insert(answer.begin(), {3, 2});
+    answer.setPoint(3, 2);
     EXPECT_EQ(answer, choice);
 }
 

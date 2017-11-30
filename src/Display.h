@@ -1,8 +1,11 @@
 #ifndef EX2_DISPLAY_H
 #define EX2_DISPLAY_H
 
+#include <vector>
 #include "Board.h"
+#include "Point.h"
 
+using namespace std;
 enum Mode {
     Computer = 1, Human
 };
@@ -32,7 +35,7 @@ public:
      * @param player The player.
      * @param moves The player possible moves.
      */
-    virtual void showMoves(Color player, std::vector<int> &moves) const = 0;
+    virtual void showMoves(Color player, vector<Point> &moves) const = 0;
 
     /**
      * Announce the input is invalid.

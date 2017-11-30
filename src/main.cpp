@@ -4,6 +4,7 @@
 #include "GameRunner.h"
 #include "RegularRules.h"
 #include "ConsoleDisplay.h"
+#include "Point.h"
 
 using namespace std;
 
@@ -30,10 +31,4 @@ int main() {
     delete player2;
     delete display;
     return 0;
-    /*
-    Board b(8);
-    RegularRules r;
-    b.put(Black,0,0);
-    cout << "Black are: " << r.getScore(Black,b) << " White are: " << r.getScore(White, b);
-    return 0; */
 }

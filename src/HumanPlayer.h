@@ -3,7 +3,6 @@
 
 #include "Player.h"
 #include <limits>
-#include <iostream>
 
 using namespace std;
 
@@ -11,7 +10,7 @@ class HumanPlayer : public Player {
 public:
     HumanPlayer(Color color, Board &board, Rules *rules, Display *display);
 
-    virtual vector<int> playMove();
+    virtual Point playMove();
 
 private:
     /**
@@ -19,7 +18,7 @@ private:
      * @param moves The possible moves.
      * @param choice The player's choice.
      */
-    void getInput(std::vector<int> &moves, std::vector<int> &choice) const;
+    Point getInput(vector<Point> &moves) const;
 };
 
 #endif //EX2_HUMANPLAYER_H

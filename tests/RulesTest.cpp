@@ -26,9 +26,9 @@ TEST(RegularRules, WhereCanPut) {
     //check if can play.
     Board a(8);
     RegularRules rules;
-    vector<int> moves, answer;
+    vector<Point> moves, answer;
     //the possible moves.
-    answer.insert(answer.begin(), {5, 4, 3, 2, 2, 3, 4, 5});
+    answer.insert(answer.begin(), {Point(5, 4), Point(3, 2), Point(2, 3), Point(4, 5)});
     //the moves we get from function.
     moves = rules.whereCanPut(a, Black);
     EXPECT_EQ(answer, moves);
@@ -46,7 +46,7 @@ TEST(RegularRules, WhereCanPut) {
     //if have only one possible move.
     c.put(Empty, 7, 7);
     c.put(White, 5, 7);
-    answer.insert(answer.begin(), {7, 7});
+    answer.insert(answer.begin(), {Point(7, 7)});
     moves = rules.whereCanPut(c, White);
     EXPECT_EQ(answer, moves);
 }

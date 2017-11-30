@@ -6,7 +6,7 @@
 
 class RegularRules : public Rules {
 public:
-    virtual vector<int> whereCanPut(const Board &board, Color color) const;
+    virtual vector<Point> whereCanPut(const Board &board, Color color) const;
 
 private:
     /**
@@ -17,13 +17,13 @@ private:
      * @param col The column.
      * @param moves The answer vector.
      */
-    void checkSurrounding(const Board &board, int player, int row, int col, std::vector<int> &moves) const;
+    void checkSurrounding(const Board &board, Color player, int row, int col, vector<Point> &moves) const;
 
     /**
      * remove duplication of same square.
      * @param vec The vector to remove from.
      */
-    void removeDouble(std::vector<int> &vec) const;
+    void removeDouble(vector<Point> &vec) const;
 };
 
 #endif //EX2_REGULARRULES_H

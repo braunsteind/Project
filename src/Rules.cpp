@@ -13,7 +13,7 @@ Color Rules::winner(const Board &board) const {
     return Empty;
 }
 
-int Rules::getScore(int player, const Board &board) const {
+int Rules::getScore(Color player, const Board &board) const {
     int score = 0;
     //loop on the board.
     for (int i = 0; i < board.getSize(); i++) {

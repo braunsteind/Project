@@ -1,11 +1,12 @@
+#include <iostream>
 #include "HumanPlayer.h"
 
 
 HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                              display) {}
 
-vector<int> HumanPlayer::playMove() {
-    vector<int> moves, choice;
+Point HumanPlayer::playMove() {
+    vector<Point> moves;
     //show board.
     display->showBoard(board);
     //get the player's possible moves.
@@ -13,18 +14,19 @@ vector<int> HumanPlayer::playMove() {
     //if no moves for player1.
     if (moves.empty()) {
         display->noMoves(color);
-        return choice;
+        return Point();
     }
     //show moves.
     display->showMoves(color, moves);
     //get the move.
-    getInput(moves, choice);
+    Point choice = getInput(moves);
     //play move.
-    board.put(color, choice[0], choice[1]);
+    board.put(color, choice.getRow(), choice.getColumn());
     return choice;
 }
 
-void HumanPlayer::getInput(std::vector<int> &moves, std::vector<int> &choice) const {
+Point HumanPlayer::getInput(vector<Point> &moves) const {
+    Point p(-1, -1);
     int row, col;
     while (true) {
         //get row and col.
@@ -35,26 +37,23 @@ void HumanPlayer::getInput(std::vector<int> &moves, std::vector<int> &choice) co
             cin.clear();
             //skip bad input
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            choice.push_back(-1);
-            choice.push_back(-1);
         } else {
             //row and col -1 in order to use in the vector.
             row--;
             col--;
-            choice.push_back(row);
-            choice.push_back(col);
+            //set the point.
+            p.setRow(row);
+            p.setColumn(col);
             cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
         }
-        //loop on the vector.
-        for (int i = 0; i < moves.size(); i = i + 2) {
-            //if choice is ok, return.
-            if (moves[i] == choice[0] && moves[i + 1] == choice[1]) {
-                return;
+        //loop on the possible moves vector.
+        for (int i = 0; i < moves.size(); i++) {
+            //if choice is ok, return the point.
+            if (moves[i] == p) {
+                return p;
             }
         }
         //if the choice isn't valid.
         display->invalidInput();
-        //get new choice.
-        choice.clear();
     }
 }

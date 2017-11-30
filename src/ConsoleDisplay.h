@@ -2,6 +2,7 @@
 #define EX2_CONSOLEDISPLAY_H
 
 #include "Display.h"
+#include <iostream>
 
 class ConsoleDisplay : public Display {
 public:
@@ -11,7 +12,7 @@ public:
 
     virtual void noMoves(Color color) const;
 
-    virtual void showMoves(Color player, std::vector<int> &moves) const;
+    virtual void showMoves(Color player, vector<Point> &moves) const;
 
     virtual void invalidInput() const;
 

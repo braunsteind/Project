@@ -71,7 +71,7 @@ void ConsoleDisplay::noMoves(Color color) const {
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
 }
 
-void ConsoleDisplay::showMoves(Color player, std::vector<int> &moves) const {
+void ConsoleDisplay::showMoves(Color player, vector<Point> &moves) const {
     if (player == Black) {
         cout << "X: It's your move." << endl << "Your possible moves: ";
     } else if (player == White) {
@@ -80,12 +80,12 @@ void ConsoleDisplay::showMoves(Color player, std::vector<int> &moves) const {
         return;
     }
     //print the possible moves.
-    for (int i = 0; i < moves.size() - 2; i = i + 2) {
-        cout << "(" << moves[i] + 1 << "," << moves[i + 1] + 1 << "), ";
+    for (int i = 0; i < moves.size() - 1; i++) {
+        cout << "(" << moves[i].getRow() + 1 << "," << moves[i].getColumn() + 1 << "), ";
     }
     //print last possible move.
-    cout << "(" << moves[moves.size() - 2] + 1 << "," << moves[moves.size() - 1] + 1
-         << ")" << endl;
+    cout << "(" << moves[moves.size() - 1].getRow() + 1 << "," << moves[moves.size() - 1].getColumn() + 1 << ")"
+         << endl;
     cout << endl << "Please enter your move (row col): ";
 }
 
