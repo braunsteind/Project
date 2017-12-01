@@ -7,7 +7,7 @@
 
 using namespace std;
 enum Mode {
-    Computer = 1, Human
+    Computer = 1, Human, Remote
 };
 
 class Display {
