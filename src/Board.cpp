@@ -50,6 +50,10 @@ Color Board::getSquare(int i, int j) const {
 }
 
 void Board::put(Color player, int a, int b) {
+    //if point not on board.
+    if (a < 0 || a >= size || b < 0 || b >= size) {
+        return;
+    }
     //put.
     arr[a][b] = player;
     int i, j, enemy = 3 - player;

@@ -35,6 +35,12 @@ public:
      */
     Color getColor() const;
 
+    /**
+     * Set the color of the player.
+     * @param newColor The new color.
+     */
+    void setColor(Color newColor);
+
 protected:
     Color color;
     Board &board;

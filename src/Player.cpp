@@ -7,6 +7,10 @@ Color Player::getColor() const {
     return color;
 }
 
+void Player::setColor(Color newColor) {
+    color = newColor;
+}
+
 bool Player::canPlay() const {
     vector<Point> moves;
     //check where the player can put.

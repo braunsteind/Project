@@ -113,8 +113,8 @@ Mode ConsoleDisplay::runMenu() const {
     int choice = 0;
     //printing menu
     cout << "Please select one of the options:" << endl;
-    cout << "Press 1 for playing against the computer" << endl;
-    cout << "Press 2 for playing against other player" << endl;
+    cout << "Press 1 for playing against local player" << endl;
+    cout << "Press 2 for playing against computer player" << endl;
     cout << "Press 3 for playing against a remote player" << endl;
     //while the input is not valid.
     while (choice != Computer && choice != Human && choice != Remote) {
@@ -126,9 +126,15 @@ Mode ConsoleDisplay::runMenu() const {
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             //print illegal input message.
             cout << "Illegal choice." << endl;
-            cout << "Press 1 for playing against the computer, 2 for playing against other player and 3 for remote player" << endl;
+            cout
+                    << "Press 1 for playing against the computer, 2 for playing against other player and 3 for remote player"
+                    << endl;
         }
     }
     //return the wanted player
     return static_cast<Mode>(choice);
+}
+
+void ConsoleDisplay::connectedToServer() const {
+    cout << "Connected to server" << endl;
 }

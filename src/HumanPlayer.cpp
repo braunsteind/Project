@@ -1,6 +1,4 @@
-#include <iostream>
 #include "HumanPlayer.h"
-
 
 HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *display) : Player(color, board, rules,
                                                                                              display) {}
@@ -20,8 +18,6 @@ Point HumanPlayer::playMove() {
     display->showMoves(color, moves);
     //get the move.
     Point choice = getInput(moves);
-    //play move.
-    board.put(color, choice.getRow(), choice.getColumn());
     return choice;
 }
 

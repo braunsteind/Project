@@ -7,7 +7,7 @@
 
 using namespace std;
 enum Mode {
-    Computer = 1, Human, Remote
+    Human = 1, Computer, Remote
 };
 
 class Display {
@@ -61,6 +61,11 @@ public:
      * @return The type of player we play against.
      */
     virtual Mode runMenu() const = 0;
+
+    /**
+     * Show connected to server message.
+     */
+    virtual void connectedToServer() const = 0;
 };
 
 #endif //EX2_DISPLAY_H

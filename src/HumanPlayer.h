@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include <limits>
+#include <iostream>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ private:
     /**
      * Get the player input and check the input is valid.
      * @param moves The possible moves.
-     * @param choice The player's choice.
+     * @return The player's choice.
      */
     Point getInput(vector<Point> &moves) const;
 };

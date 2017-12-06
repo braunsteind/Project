@@ -21,6 +21,8 @@ public:
     virtual void announceNoMove(Color player) const;
 
     virtual Mode runMenu() const;
+
+    virtual void connectedToServer() const override;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

@@ -54,8 +54,6 @@ Point ComputerPlayer::playMove() {
     }
     //get the best move.
     Point choice(moves[computerBestMove]);
-    //play the computer best move.
-    board.put(color, choice.getRow(), choice.getColumn());
     //return the computer move.
     display->announceMove(color, choice.getRow() + 1, choice.getColumn() + 1);
     return choice;
