@@ -2,7 +2,9 @@
 
 OnlineHumanPlayer::OnlineHumanPlayer(Color color, Board &board, Rules *rules, Display *display, const char *serverIP,
                                      int serverPort) : HumanPlayer(color, board, rules, display), serverIP(serverIP),
-                                                       serverPort(serverPort), clientSocket(0) {}
+                                                       serverPort(serverPort), clientSocket(0) {
+    connectToServer();
+}
 
 Point OnlineHumanPlayer::playMove() {
     //get played move.

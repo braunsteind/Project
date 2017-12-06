@@ -25,7 +25,7 @@ int main() {
         player1 = new HumanPlayer(Black, board, rules, display);
         player2 = new ComputerPlayer(White, board, rules, display);
     } else if (playerMode == Remote) {
-        char *serverIP = "127.0.0.1";
+        char serverIP[] = "127.0.0.1";
         int port = 8000;
         player1 = new OnlineHumanPlayer(Black, board, rules, display, serverIP, port);
         OnlineHumanPlayer *tempPlayer = dynamic_cast<OnlineHumanPlayer *>(player1);
