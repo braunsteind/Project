@@ -138,3 +138,7 @@ Mode ConsoleDisplay::runMenu() const {
 void ConsoleDisplay::connectedToServer() const {
     cout << "Connected to server" << endl;
 }
+
+void ConsoleDisplay::waitingForOtherPlayer() const {
+    cout << "Waiting for other player's move..." << endl;
+}

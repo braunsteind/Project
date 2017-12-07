@@ -23,6 +23,8 @@ public:
     virtual Mode runMenu() const;
 
     virtual void connectedToServer() const override;
+
+    void waitingForOtherPlayer() const override;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

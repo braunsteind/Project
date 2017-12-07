@@ -50,7 +50,7 @@ Point ComputerPlayer::playMove() {
     //if no moves.
     if (computerBestMove == -1) {
         display->announceNoMove(color);
-        return Point(-1, -1);
+        return Point(-2, -2);
     }
     //get the best move.
     Point choice(moves[computerBestMove]);

@@ -4,6 +4,7 @@ HumanPlayer::HumanPlayer(Color color, Board &board, Rules *rules, Display *displ
                                                                                              display) {}
 
 Point HumanPlayer::playMove() {
+    Point choice(-2, -2);
     vector<Point> moves;
     //show board.
     display->showBoard(board);
@@ -12,12 +13,12 @@ Point HumanPlayer::playMove() {
     //if no moves for player1.
     if (moves.empty()) {
         display->noMoves(color);
-        return Point();
+        return choice;
     }
     //show moves.
     display->showMoves(color, moves);
     //get the move.
-    Point choice = getInput(moves);
+    choice = getInput(moves);
     return choice;
 }
 

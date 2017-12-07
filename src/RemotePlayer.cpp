@@ -6,6 +6,8 @@ RemotePlayer::RemotePlayer(Color color, Board &board, Rules *rules, Display *dis
 
 Point RemotePlayer::playMove() {
     int n, row, col;
+    //wait for move.
+    display->waitingForOtherPlayer();
     n = read(clientSocket, &row, sizeof(row));
     if (n == -1) {
         cout << "Error reading the move" << endl;
@@ -25,5 +27,15 @@ Point RemotePlayer::playMove() {
         //return;
     }
     Point choice(row, col);
+    //if game not ended.
+    if (row != -1 || col != -1) {
+        //if no move.
+        if (row == -2 && col == -2) {
+            display->announceNoMove(color);
+        } else {
+            //announce the move.
+            display->announceMove(color, row, col);
+        }
+    }
     return choice;
 }

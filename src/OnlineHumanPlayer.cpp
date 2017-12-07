@@ -76,7 +76,7 @@ Color OnlineHumanPlayer::getColorFromServer() {
         //return;
     }
     //if the color is black.
-    if (number == 1) {
+    if (number == '1') {
         return Black;
     }
     return White;

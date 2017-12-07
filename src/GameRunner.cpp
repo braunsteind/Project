@@ -12,12 +12,22 @@ void GameRunner::run() {
     vector<int> playedMove;
     //play while at least one player can.
     while (player1->canPlay() || player2->canPlay()) {
-        //play with player1.
-        played = player1->playMove();
-        board.put(player1->getColor(), played.getRow(), played.getColumn());
-        //play with player2.
-        played = player2->playMove();
-        board.put(player2->getColor(), played.getRow(), played.getColumn());
+        //make sure black play first.
+        if (player1->getColor() == Black) {
+            //play with player1.
+            played = player1->playMove();
+            board.put(player1->getColor(), played.getRow(), played.getColumn());
+            //play with player2.
+            played = player2->playMove();
+            board.put(player2->getColor(), played.getRow(), played.getColumn());
+        } else {
+            //play with player2.
+            played = player2->playMove();
+            board.put(player2->getColor(), played.getRow(), played.getColumn());
+            //play with player1.
+            played = player1->playMove();
+            board.put(player1->getColor(), played.getRow(), played.getColumn());
+        }
     }
     //print the board.
     display->showBoard(board);
