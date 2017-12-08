@@ -5,6 +5,7 @@
 #include "RemotePlayer.h"
 #include "RegularRules.h"
 #include "ConsoleDisplay.h"
+#include "ConfigurationFileHandler.h"
 
 GameLauncher::GameLauncher() {
     const int size = 8;
@@ -22,8 +23,13 @@ GameLauncher::GameLauncher() {
             player2 = new ComputerPlayer(White, *board, rules, display);
             break;
         case Remote:
-            char serverIP[] = "127.0.0.1";
-            int port = 7700;
+            //char serverIP[] = "127.0.0.1";
+            //int port = 7700;
+            ConfigurationFileHandler handler;
+            handler.readConfigurationFile();
+            int port = handler.getPortFromFile();
+            const char* serverIP = handler.getIPFromFile();
+
             player1 = new OnlineHumanPlayer(Black, *board, rules, display, serverIP, port);
             OnlineHumanPlayer *temp = dynamic_cast<OnlineHumanPlayer *>(player1);
             int socket = temp->getClientSocket();
