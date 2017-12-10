@@ -1,6 +1,8 @@
 #ifndef EX2_BOARD_H
 #define EX2_BOARD_H
 
+#include "Point.h"
+
 enum Color {
     Empty, Black, White
 };
@@ -56,9 +58,12 @@ public:
      */
     bool operator==(const Board &board) const;
 
+    Point getLastPut() const;
+
 private:
     //the board size.
     int size;
+    Point lastPut;
     //represents the players.
     Color **arr;
 

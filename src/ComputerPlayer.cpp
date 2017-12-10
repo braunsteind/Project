@@ -58,3 +58,5 @@ Point ComputerPlayer::playMove() {
     display->announceMove(color, choice.getRow() + 1, choice.getColumn() + 1);
     return choice;
 }
+
+void ComputerPlayer::endPlay() const {}

@@ -13,6 +13,8 @@ public:
 
     virtual Point playMove() override;
 
+    void endPlay() const override;
+
 private:
     const char *serverIP;
     int serverPort;

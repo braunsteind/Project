@@ -7,10 +7,19 @@ OnlineHumanPlayer::OnlineHumanPlayer(Color color, Board &board, Rules *rules, Di
 }
 
 Point OnlineHumanPlayer::playMove() {
+    const int noMove = -2;
     //get played move.
     Point played = HumanPlayer::playMove();
-    //send the played move to the other player.
-    sendMove(played.getRow(), played.getColumn());
+    Point lastPut = board.getLastPut();
+    //if no move and other played didn't play.
+    if (played.getRow() == noMove && played.getColumn() == noMove && lastPut.getRow() == noMove &&
+        lastPut.getColumn() == noMove) {
+        //end the game.
+        endPlay();
+    } else {
+        //send the played move to the other player.
+        sendMove(played.getRow(), played.getColumn());
+    }
     return played;
 }
 
@@ -68,16 +77,29 @@ Color OnlineHumanPlayer::getColorFromServer() {
     //read the player number.
     n = read(clientSocket, &number, sizeof(number));
     if (n == -1) {
-        cout << "Error reading the move" << endl;
-        //return;
+        throw "Error reading the color";
     }
     if (n == 0) {
-        cout << "Player disconnected" << endl;
-        //return;
+        throw "Player disconnected";
     }
     //if the color is black.
     if (number == '1') {
         return Black;
+    } else if (number == '2') {
+        return White;
     }
-    return White;
+    throw "Error reading the color";
+}
+
+void OnlineHumanPlayer::endPlay() const {
+    //end play consts.
+    int row = -1, col = -1;
+    int n = write(clientSocket, &row, sizeof(row));
+    if (n == -1) {
+        throw "Error writing end play to socket";
+    }
+    n = write(clientSocket, &col, sizeof(col));
+    if (n == -1) {
+        throw "Error writing end play to socket";
+    }
 }

@@ -1,6 +1,7 @@
 #include "Board.h"
 
 Board::Board(int size) : size(size) {
+    this->lastPut = Point(-3, -3);
     //set the board.
     arr = new Color *[size];
     for (int i = 0; i < size; i++) {
@@ -22,6 +23,7 @@ Board::Board(int size) : size(size) {
 Board::Board(const Board &board) {
     //copy the size;
     size = board.getSize();
+    lastPut = board.getLastPut();
     arr = new Color *[size];
     for (int i = 0; i < size; i++) {
         arr[i] = new Color[size];
@@ -45,17 +47,26 @@ int Board::getSize() const {
     return size;
 }
 
+Point Board::getLastPut() const {
+    return lastPut;
+}
+
 Color Board::getSquare(int i, int j) const {
     return arr[i][j];
 }
 
 void Board::put(Color player, int a, int b) {
+    const int noMove = -2;
     //if point not on board.
     if (a < 0 || a >= size || b < 0 || b >= size) {
+        //if didn't put anything
+        lastPut.setPoint(noMove, noMove);
         return;
     }
     //put.
     arr[a][b] = player;
+    //update lastPut.
+    lastPut.setPoint(a, b);
     int i, j, enemy = 3 - player;
     //up.
     i = a - 1;

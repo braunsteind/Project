@@ -13,6 +13,8 @@ public:
 
     virtual Point playMove();
 
+    void endPlay() const override;
+
 private:
     /**
      * Get the player input and check the input is valid.

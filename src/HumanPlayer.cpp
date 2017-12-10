@@ -23,7 +23,7 @@ Point HumanPlayer::playMove() {
 }
 
 Point HumanPlayer::getInput(vector<Point> &moves) const {
-    Point p(-1, -1);
+    Point p(-2, -2);
     int row, col;
     while (true) {
         //get row and col.
@@ -54,3 +54,5 @@ Point HumanPlayer::getInput(vector<Point> &moves) const {
         display->invalidInput();
     }
 }
+
+void HumanPlayer::endPlay() const {}

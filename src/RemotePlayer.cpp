@@ -5,6 +5,7 @@ RemotePlayer::RemotePlayer(Color color, Board &board, Rules *rules, Display *dis
                                                                serverPort(serverPort), clientSocket(clientSocket) {}
 
 Point RemotePlayer::playMove() {
+    const int noMove = -2;
     int n, row, col;
     //wait for move.
     display->waitingForOtherPlayer();
@@ -34,8 +35,10 @@ Point RemotePlayer::playMove() {
             display->announceNoMove(color);
         } else {
             //announce the move.
-            display->announceMove(color, row, col);
+            display->announceMove(color, row + 1, col + 1);
         }
     }
     return choice;
 }
+
+void RemotePlayer::endPlay() const {}

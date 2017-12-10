@@ -26,6 +26,8 @@ public:
      */
     int getClientSocket();
 
+    void endPlay() const override;
+
     /**
      * Get the player color from the server.
      * @return The player color.

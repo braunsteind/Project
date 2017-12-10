@@ -19,7 +19,7 @@ public:
 
     /**
      * Play one move with the player.
-     * @return The chosen point. If couldn't play return -1, -1.
+     * @return The chosen point. If couldn't play return -2, -2.
      */
     virtual Point playMove() = 0;
 
@@ -28,6 +28,11 @@ public:
      * @return True if can play, false if can't.
      */
     virtual bool canPlay() const;
+
+    /**
+     * End playing.
+     */
+    virtual void endPlay() const = 0;
 
     /**
      * Get the player color.
