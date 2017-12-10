@@ -10,16 +10,8 @@ Point OnlineHumanPlayer::playMove() {
     const int noMove = -2;
     //get played move.
     Point played = HumanPlayer::playMove();
-    Point lastPut = board.getLastPut();
-    //if no move and other played didn't play.
-    if (played.getRow() == noMove && played.getColumn() == noMove && lastPut.getRow() == noMove &&
-        lastPut.getColumn() == noMove) {
-        //end the game.
-        endPlay();
-    } else {
-        //send the played move to the other player.
-        sendMove(played.getRow(), played.getColumn());
-    }
+    //send the played move to the other player.
+    sendMove(played.getRow(), played.getColumn());
     return played;
 }
 
@@ -93,7 +85,8 @@ Color OnlineHumanPlayer::getColorFromServer() {
 
 void OnlineHumanPlayer::endPlay() const {
     //end play consts.
-    int row = -1, col = -1;
+    int row = -1;
+    int col = -1;
     int n = write(clientSocket, &row, sizeof(row));
     if (n == -1) {
         throw "Error writing end play to socket";
