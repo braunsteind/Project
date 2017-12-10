@@ -9,7 +9,6 @@ GameRunner::GameRunner(Board &board, Player *player1, Player *player2, Rules *ru
 
 void GameRunner::run() {
     Point played;
-    vector<int> playedMove;
     //play while at least one player can.
     while (player1->canPlay() || player2->canPlay()) {
         //make sure black play first.

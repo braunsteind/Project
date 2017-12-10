@@ -13,6 +13,7 @@ TEST(ComputerPlayer, PlayMoveTest) {
     board.put(Black, 5, 4);
     //the computer move.
     choice = computerPlayer.playMove();
+    board.put(White, choice.getRow(), choice.getColumn());
     //the right move.
     answer.setPoint(3, 5);
     EXPECT_EQ(answer, choice);
@@ -20,6 +21,7 @@ TEST(ComputerPlayer, PlayMoveTest) {
     board.put(Black, 2, 3);
     //the computer move.
     choice = computerPlayer.playMove();
+    board.put(White, choice.getRow(), choice.getColumn());
     //the right move.
     answer.setPoint(6, 4);
     EXPECT_EQ(answer, choice);
@@ -27,6 +29,7 @@ TEST(ComputerPlayer, PlayMoveTest) {
     board.put(Black, 4, 5);
     //the computer move.
     choice = computerPlayer.playMove();
+    board.put(White, choice.getRow(), choice.getColumn());
     //the right move.
     answer.setPoint(3, 2);
     EXPECT_EQ(answer, choice);

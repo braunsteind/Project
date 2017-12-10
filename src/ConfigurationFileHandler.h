@@ -1,10 +1,10 @@
-
-#include <string>
-using namespace std;
-
 #ifndef EX2_CONFIGURATIONFILEHANDLER_H
 #define EX2_CONFIGURATIONFILEHANDLER_H
 
+#include <string>
+#include <stdlib.h>
+
+using namespace std;
 
 class ConfigurationFileHandler {
 public:
@@ -13,12 +13,14 @@ public:
      * the configuration file
      */
     void readConfigurationFile();
+
     /**
      * This function returns the server's IP
      *
      * @return the IP address
      */
-    const char* getIPFromFile();
+    const char *getIPFromFile();
+
     /**
      * This function returns the server's Port
      *

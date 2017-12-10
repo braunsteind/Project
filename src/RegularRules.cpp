@@ -17,8 +17,9 @@ vector<Point> RegularRules::whereCanPut(const Board &board, Color color) const {
 }
 
 void RegularRules::checkSurrounding(const Board &board, Color player, int a, int b, vector<Point> &moves) const {
+    const int getEnemy = 3;
     int size = board.getSize();
-    int i, j, enemy = 3 - player;
+    int i, j, enemy = getEnemy - player;
     //up.
     i = a - 1;
     j = b;
