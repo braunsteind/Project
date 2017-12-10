@@ -9,7 +9,7 @@ public:
 
     virtual Point playMove();
 
-    void endPlay() const override;
+    virtual void endPlay() const;
 };
 
 #endif //EX2_COMPUTERPLAYER_H

@@ -13,7 +13,7 @@ class OnlineHumanPlayer : public HumanPlayer {
 public:
     OnlineHumanPlayer(Color color, Board &board, Rules *rules, Display *display, const char *serverIP, int serverPort);
 
-    Point playMove() override;
+    virtual Point playMove();
 
     /**
      * Connect the player to server.
@@ -26,7 +26,7 @@ public:
      */
     int getClientSocket();
 
-    void endPlay() const override;
+    virtual void endPlay() const;
 
     /**
      * Get the player color from the server.
