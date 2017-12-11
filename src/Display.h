@@ -66,10 +66,16 @@ public:
      * Show connected to server message.
      */
     virtual void connectedToServer() const = 0;
+
+    /**
+     * Wait for other player to connect.
+     */
+    virtual void waitingForOtherPlayer() const = 0;
+
     /**
      * Wait for other player.
      */
-    virtual void waitingForOtherPlayer() const = 0;
+    virtual void waitingForOtherPlayerMove() const = 0;
 };
 
 #endif //EX2_DISPLAY_H

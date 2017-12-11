@@ -26,7 +26,7 @@ void ConfigurationFileHandler::readConfigurationFile() {
             startIndex = i + 1;
         }
     }
-    this->serverIP = ipLine.substr(startIndex, ipLine.size() - 1);
+    this->serverIP = ipLine.substr(startIndex);
     //extracting the port from the second line
     for (i = 0; i < portLine.size(); i++) {
         if (portLine[i] == ':') {
@@ -35,8 +35,7 @@ void ConfigurationFileHandler::readConfigurationFile() {
         }
     }
     //cutting the string to Port only
-    tempPort = portLine.substr(startIndex, portLine.size() - 1);
-
+    tempPort = portLine.substr(startIndex);
     this->port = atoi(tempPort.c_str());
 }
 

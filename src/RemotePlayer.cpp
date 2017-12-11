@@ -5,10 +5,9 @@ RemotePlayer::RemotePlayer(Color color, Board &board, Rules *rules, Display *dis
                                                                serverPort(serverPort), clientSocket(clientSocket) {}
 
 Point RemotePlayer::playMove() {
-    const int noMove = -2;
     int n, row, col;
     //wait for move.
-    display->waitingForOtherPlayer();
+    display->waitingForOtherPlayerMove();
     n = read(clientSocket, &row, sizeof(row));
     if (n == -1) {
         throw "Error reading the move";

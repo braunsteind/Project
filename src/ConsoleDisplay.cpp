@@ -1,10 +1,4 @@
-//
-// Created by daniel on 11/11/17.
-//
-
-#include <limits>
 #include "ConsoleDisplay.h"
-
 
 void ConsoleDisplay::announceWinner(Color winner) const {
     switch (winner) {
@@ -140,5 +134,9 @@ void ConsoleDisplay::connectedToServer() const {
 }
 
 void ConsoleDisplay::waitingForOtherPlayer() const {
+    cout << "Waiting for other player to join..." << endl;
+}
+
+void ConsoleDisplay::waitingForOtherPlayerMove() const {
     cout << "Waiting for other player's move..." << endl;
 }

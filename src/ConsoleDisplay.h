@@ -3,6 +3,7 @@
 
 #include "Display.h"
 #include <iostream>
+#include <limits>
 
 class ConsoleDisplay : public Display {
 public:
@@ -25,6 +26,8 @@ public:
     virtual void connectedToServer() const;
 
     virtual void waitingForOtherPlayer() const;
+
+    virtual void waitingForOtherPlayerMove() const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

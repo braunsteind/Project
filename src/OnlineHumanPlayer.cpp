@@ -4,6 +4,7 @@ OnlineHumanPlayer::OnlineHumanPlayer(Color color, Board &board, Rules *rules, Di
                                      int serverPort) : HumanPlayer(color, board, rules, display), serverIP(serverIP),
                                                        serverPort(serverPort), clientSocket(0) {
     connectToServer();
+    display->waitingForOtherPlayer();
 }
 
 Point OnlineHumanPlayer::playMove() {
