@@ -11,21 +11,17 @@ Point RemotePlayer::playMove() {
     display->waitingForOtherPlayer();
     n = read(clientSocket, &row, sizeof(row));
     if (n == -1) {
-        cout << "Error reading the move" << endl;
-        //return;
+        throw "Error reading the move";
     }
     if (n == 0) {
-        cout << "Player disconnected" << endl;
-        //return;
+        throw "Player disconnected";
     }
     n = read(clientSocket, &col, sizeof(row));
     if (n == -1) {
-        cout << "Error reading the move" << endl;
-        //return;
+        throw "Error reading the move";
     }
     if (n == 0) {
-        cout << "Player disconnected" << endl;
-        //return;
+        throw "Player disconnected";
     }
     Point choice(row, col);
     //if game not ended.
