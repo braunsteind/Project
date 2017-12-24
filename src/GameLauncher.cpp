@@ -23,18 +23,15 @@ GameLauncher::GameLauncher() {
             player2 = new ComputerPlayer(White, *board, rules, display);
             break;
         case Remote:
-            //char serverIP[] = "127.0.0.1";
-            //int port = 7700;
             ConfigurationFileHandler handler;
             handler.readConfigurationFile();
             int port = handler.getPortFromFile();
-            const char* serverIP = handler.getIPFromFile();
-
+            const char *serverIP = handler.getIPFromFile();
             player1 = new OnlineHumanPlayer(Black, *board, rules, display, serverIP, port);
-            OnlineHumanPlayer *temp = dynamic_cast<OnlineHumanPlayer *>(player1);
-            int socket = temp->getClientSocket();
+            //OnlineHumanPlayer *temp = dynamic_cast<OnlineHumanPlayer *>(player1);
+            int socket = ((OnlineHumanPlayer *) player1)->getClientSocket();
             player2 = new RemotePlayer(White, *board, rules, display, serverIP, port, socket);
-            Color player1Color = temp->getColorFromServer();
+            Color player1Color = ((OnlineHumanPlayer *) player1)->getColorFromServer();
             player1->setColor(player1Color);
             Color player2Color;
             if (player1Color == Black) {
