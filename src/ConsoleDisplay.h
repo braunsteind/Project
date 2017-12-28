@@ -28,6 +28,10 @@ public:
     virtual void waitingForOtherPlayer() const;
 
     virtual void waitingForOtherPlayerMove() const;
+
+    virtual void showCommands() const;
+
+    void showGamesList(vector<string> gamesList) const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

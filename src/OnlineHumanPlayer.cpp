@@ -4,7 +4,7 @@ OnlineHumanPlayer::OnlineHumanPlayer(Color color, Board &board, Rules *rules, Di
                                      int serverPort) : HumanPlayer(color, board, rules, display), serverIP(serverIP),
                                                        serverPort(serverPort), clientSocket(0) {
     connectToServer();
-    display->waitingForOtherPlayer();
+    //display->waitingForOtherPlayer();
 }
 
 Point OnlineHumanPlayer::playMove() {
@@ -95,5 +95,86 @@ void OnlineHumanPlayer::endPlay() const {
     n = write(clientSocket, &col, sizeof(col));
     if (n == -1) {
         throw "Error writing end play to socket";
+    }
+}
+
+void OnlineHumanPlayer::sendCommand() {
+    bool run = true;
+    while (run) {
+        //show commands.
+        display->showCommands();
+        int dataLength = 0, twoWordsCommand = 0, spaceIndex = 0;
+        vector<string> args;
+        char data[DATA_LENGTH];
+        cin >> data;
+        //send data to server.
+        int n = write(clientSocket, &data, sizeof(data));
+        if (n == -1) {
+            throw "Error writing end play to socket";
+        }
+        //loop on the data from client.
+        for (int i = 0; i < DATA_LENGTH; i++) {
+            //update the length
+            dataLength++;
+            //check if the command ended and if it's one or two words.
+            if (data[i] == '\0') {
+                break;
+            } else if (data[i] == ' ') {
+                spaceIndex = i;
+                twoWordsCommand = 1;
+            }
+        }
+        //if one word command.
+        if (twoWordsCommand == 0) {
+            //create command.
+            char command[dataLength];
+            //copy the command.
+            for (int i = 0; i < dataLength; i++) {
+                command[i] = data[i];
+            }
+            //active command (args empty).
+            executeCommand(string(command), args, &run);
+        } else { //if two words command.
+            char command[spaceIndex + 1];
+            char name[dataLength - (spaceIndex + 1)];
+            //copy the command.
+            for (int i = 0; i < spaceIndex; i++) {
+                command[i] = data[i];
+            }
+            command[spaceIndex] = '\0';
+            //copy the name.
+            for (int i = spaceIndex + 1; i < dataLength; i++) {
+                name[i] = data[i];
+            }
+            //insert the room name to args.
+            args.push_back(string(name));
+            //active command.
+            executeCommand(string(command), args, &run);
+        }
+    }
+}
+
+void OnlineHumanPlayer::executeCommand(string command, vector<string> args, bool *run) {
+    if (command.compare("start") == 0) {
+        display->waitingForOtherPlayer();
+        *run = false;
+    } else if ("join") {
+        *run = false;
+    } else if ("list_games") {
+        int n;
+        vector<string> gamesList;
+        char room[DATA_LENGTH];
+        //while there are rooms to show.
+        while (string(room).compare("\0") == 0) {
+            n = read(clientSocket, &room, sizeof(room));
+            if (n == -1) {
+                throw "Error reading the room";
+            }
+            if (n == 0) {
+                throw "Disconnected";
+            }
+            gamesList.push_back(string(room));
+        }
+        display->showGamesList(gamesList);
     }
 }

@@ -9,6 +9,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#define DATA_LENGTH 50
+
 class OnlineHumanPlayer : public HumanPlayer {
 public:
     OnlineHumanPlayer(Color color, Board &board, Rules *rules, Display *display, const char *serverIP, int serverPort);
@@ -34,6 +36,11 @@ public:
      */
     Color getColorFromServer();
 
+    /**
+     * Send command to server.
+     */
+    void sendCommand();
+
 private:
     const char *serverIP;
     int serverPort;
@@ -45,6 +52,8 @@ private:
      * @param col The col.
      */
     void sendMove(int row, int col);
+
+    void executeCommand(string command, vector<string> args, bool *run);
 };
 
 #endif //EX2_ONLINEHUMANPLAYER_H

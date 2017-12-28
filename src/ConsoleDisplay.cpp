@@ -140,3 +140,15 @@ void ConsoleDisplay::waitingForOtherPlayer() const {
 void ConsoleDisplay::waitingForOtherPlayerMove() const {
     cout << "Waiting for other player's move..." << endl;
 }
+
+void ConsoleDisplay::showCommands() const {
+    cout << "Insert command (start, list_games, join, play, close, exit):" << endl;
+}
+
+void ConsoleDisplay::showGamesList(vector<string> gamesList) const {
+    //loop on games.
+    for (int i = 0; i < gamesList.size(); i++) {
+        cout << gamesList[i] << ", ";
+    }
+    cout << endl;
+}

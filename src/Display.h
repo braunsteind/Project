@@ -1,6 +1,7 @@
 #ifndef EX2_DISPLAY_H
 #define EX2_DISPLAY_H
 
+#include <string>
 #include <vector>
 #include "Board.h"
 #include "Point.h"
@@ -76,6 +77,17 @@ public:
      * Wait for other player.
      */
     virtual void waitingForOtherPlayerMove() const = 0;
+
+    /**
+     * Show the possible commands.
+     */
+    virtual void showCommands() const = 0;
+
+    /**
+     * show list of games.
+     * @param gamesList List of games.
+     */
+    virtual void showGamesList(vector<std::string> gamesList) const = 0;
 };
 
 #endif //EX2_DISPLAY_H
