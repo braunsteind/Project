@@ -48,14 +48,11 @@ void OnlineHumanPlayer::connectToServer() {
 }
 
 void OnlineHumanPlayer::sendMove(int row, int col) {
-    cout << "writing to" << clientSocket << endl;
-    cout << "row:" << row << endl;
     //Write the move to the socket
     int n = write(clientSocket, &row, sizeof(row));
     if (n == -1) {
         throw "Error writing row to socket";
     }
-    cout << "col:" << col << endl;
     n = write(clientSocket, &col, sizeof(col));
     if (n == -1) {
         throw "Error writing col to socket";
@@ -110,7 +107,6 @@ void OnlineHumanPlayer::sendCommand() {
         char data[DATA_LENGTH];
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cin.getline(data, sizeof(data));
-        cout << "writing data to socket: " << clientSocket << endl;
         //send data to server.
         int n = write(clientSocket, &data, sizeof(data));
         if (n == -1) {
