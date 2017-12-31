@@ -53,7 +53,12 @@ private:
      */
     void sendMove(int row, int col);
 
-    void executeCommand(string command, vector<string> args, bool *run);
+    /**
+     * Excute the command.
+     * @param command The command.
+     * @param run True if need to go back to get another command.
+     */
+    void executeCommand(string command, bool *run);
 };
 
 #endif //EX2_ONLINEHUMANPLAYER_H

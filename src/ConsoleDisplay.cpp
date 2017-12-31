@@ -147,8 +147,8 @@ void ConsoleDisplay::showCommands() const {
 
 void ConsoleDisplay::showGamesList(vector<string> gamesList) const {
     //loop on games.
-    for (int i = 0; i < gamesList.size(); i++) {
+    for (int i = 0; i < gamesList.size() - 1; i++) {
         cout << gamesList[i] << ", ";
     }
-    cout << endl;
+    cout << gamesList[gamesList.size() - 1] << endl;
 }

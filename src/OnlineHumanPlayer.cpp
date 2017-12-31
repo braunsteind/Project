@@ -4,7 +4,6 @@ OnlineHumanPlayer::OnlineHumanPlayer(Color color, Board &board, Rules *rules, Di
                                      int serverPort) : HumanPlayer(color, board, rules, display), serverIP(serverIP),
                                                        serverPort(serverPort), clientSocket(0) {
     connectToServer();
-    //display->waitingForOtherPlayer();
 }
 
 Point OnlineHumanPlayer::playMove() {
@@ -49,11 +48,14 @@ void OnlineHumanPlayer::connectToServer() {
 }
 
 void OnlineHumanPlayer::sendMove(int row, int col) {
+    cout << "writing to" << clientSocket << endl;
+    cout << "row:" << row << endl;
     //Write the move to the socket
     int n = write(clientSocket, &row, sizeof(row));
     if (n == -1) {
         throw "Error writing row to socket";
     }
+    cout << "col:" << col << endl;
     n = write(clientSocket, &col, sizeof(col));
     if (n == -1) {
         throw "Error writing col to socket";
@@ -106,7 +108,9 @@ void OnlineHumanPlayer::sendCommand() {
         int dataLength = 0, twoWordsCommand = 0, spaceIndex = 0;
         vector<string> args;
         char data[DATA_LENGTH];
-        cin >> data;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.getline(data, sizeof(data));
+        cout << "writing data to socket: " << clientSocket << endl;
         //send data to server.
         int n = write(clientSocket, &data, sizeof(data));
         if (n == -1) {
@@ -133,7 +137,7 @@ void OnlineHumanPlayer::sendCommand() {
                 command[i] = data[i];
             }
             //active command (args empty).
-            executeCommand(string(command), args, &run);
+            executeCommand(string(command), &run);
         } else { //if two words command.
             char command[spaceIndex + 1];
             char name[dataLength - (spaceIndex + 1)];
@@ -143,29 +147,29 @@ void OnlineHumanPlayer::sendCommand() {
             }
             command[spaceIndex] = '\0';
             //copy the name.
-            for (int i = spaceIndex + 1; i < dataLength; i++) {
-                name[i] = data[i];
+            for (int i = 0; i < dataLength - (spaceIndex + 1); i++) {
+                name[i] = data[i + spaceIndex + 1];
             }
             //insert the room name to args.
             args.push_back(string(name));
             //active command.
-            executeCommand(string(command), args, &run);
+            executeCommand(string(command), &run);
         }
     }
 }
 
-void OnlineHumanPlayer::executeCommand(string command, vector<string> args, bool *run) {
+void OnlineHumanPlayer::executeCommand(string command, bool *run) {
     if (command.compare("start") == 0) {
         display->waitingForOtherPlayer();
         *run = false;
-    } else if ("join") {
+    } else if (command.compare("join") == 0) {
         *run = false;
-    } else if ("list_games") {
+    } else if (command.compare("list_games") == 0) {
         int n;
         vector<string> gamesList;
         char room[DATA_LENGTH];
         //while there are rooms to show.
-        while (string(room).compare("\0") == 0) {
+        do {
             n = read(clientSocket, &room, sizeof(room));
             if (n == -1) {
                 throw "Error reading the room";
@@ -174,7 +178,9 @@ void OnlineHumanPlayer::executeCommand(string command, vector<string> args, bool
                 throw "Disconnected";
             }
             gamesList.push_back(string(room));
-        }
+        } while (string(room).compare("\0") != 0);
+        //remove the empty room name.
+        gamesList.erase(gamesList.end());
         display->showGamesList(gamesList);
     }
 }
