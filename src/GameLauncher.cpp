@@ -28,10 +28,10 @@ GameLauncher::GameLauncher() {
             int port = handler.getPortFromFile();
             const char *serverIP = handler.getIPFromFile();
             player1 = new OnlineHumanPlayer(Black, *board, rules, display, serverIP, port);
-            int socket = ((OnlineHumanPlayer *) player1)->getClientSocket();
-            player2 = new RemotePlayer(White, *board, rules, display, serverIP, port, socket);
             //send command to server.
             ((OnlineHumanPlayer *) player1)->sendCommand();
+            int socket = ((OnlineHumanPlayer *) player1)->getClientSocket();
+            player2 = new RemotePlayer(White, *board, rules, display, serverIP, port, socket);
             Color player1Color = ((OnlineHumanPlayer *) player1)->getColorFromServer();
             player1->setColor(player1Color);
             Color player2Color;

@@ -88,6 +88,12 @@ public:
      * @param gamesList List of games.
      */
     virtual void showGamesList(vector<std::string> gamesList) const = 0;
+
+    virtual void serverEnded() const = 0;
+
+    virtual void roomExist() const = 0;
+
+    virtual void noSuchRoom() const = 0;
 };
 
 #endif //EX2_DISPLAY_H

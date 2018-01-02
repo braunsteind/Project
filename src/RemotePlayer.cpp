@@ -5,6 +5,7 @@ RemotePlayer::RemotePlayer(Color color, Board &board, Rules *rules, Display *dis
                                                                serverPort(serverPort), clientSocket(clientSocket) {}
 
 Point RemotePlayer::playMove() {
+    const int gameEnded = -1, noMove = -2, serverEnded = -3;
     int n, row, col;
     //wait for move.
     display->waitingForOtherPlayerMove();
@@ -15,6 +16,12 @@ Point RemotePlayer::playMove() {
     if (n == 0) {
         throw "Player disconnected";
     }
+    //check if server ended.
+    if (row == serverEnded) {
+        //end the game.
+        display->serverEnded();
+        exit(0);
+    }
     n = read(clientSocket, &col, sizeof(row));
     if (n == -1) {
         throw "Error reading the move";
@@ -22,11 +29,11 @@ Point RemotePlayer::playMove() {
     if (n == 0) {
         throw "Player disconnected";
     }
+
     Point choice(row, col);
-    //if game not ended.
-    if (row != -1 || col != -1) {
+    if (row != gameEnded || col != gameEnded) { //if game not ended.
         //if no move.
-        if (row == -2 && col == -2) {
+        if (row == noMove && col == noMove) {
             display->announceNoMove(color);
         } else {
             //announce the move.

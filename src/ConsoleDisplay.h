@@ -32,6 +32,12 @@ public:
     virtual void showCommands() const;
 
     void showGamesList(vector<string> gamesList) const;
+
+    void serverEnded() const;
+
+    void roomExist() const;
+
+    void noSuchRoom() const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

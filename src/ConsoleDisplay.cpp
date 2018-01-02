@@ -114,6 +114,7 @@ Mode ConsoleDisplay::runMenu() const {
     while (choice != Computer && choice != Human && choice != Remote) {
         //get input.
         cin >> choice;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         //if the input is not valid.
         if (choice != Computer && choice != Human && choice != Remote) {
             cin.clear();
@@ -146,9 +147,26 @@ void ConsoleDisplay::showCommands() const {
 }
 
 void ConsoleDisplay::showGamesList(vector<string> gamesList) const {
+    //if no games, return.
+    if (gamesList.size() == 0) {
+        return;
+    }
     //loop on games.
     for (int i = 0; i < gamesList.size() - 1; i++) {
         cout << gamesList[i] << ", ";
     }
     cout << gamesList[gamesList.size() - 1] << endl;
 }
+
+void ConsoleDisplay::serverEnded() const {
+    cout << "Server is about to shut down." << endl;
+}
+
+void ConsoleDisplay::roomExist() const {
+    cout << "The room's name is already taken." << endl;
+}
+
+void ConsoleDisplay::noSuchRoom() const {
+    cout << "There is no such room" << endl;
+}
+

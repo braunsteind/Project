@@ -1,9 +1,9 @@
+#include <sstream>
 #include "OnlineHumanPlayer.h"
 
 OnlineHumanPlayer::OnlineHumanPlayer(Color color, Board &board, Rules *rules, Display *display, const char *serverIP,
                                      int serverPort) : HumanPlayer(color, board, rules, display), serverIP(serverIP),
                                                        serverPort(serverPort), clientSocket(0) {
-    connectToServer();
 }
 
 Point OnlineHumanPlayer::playMove() {
@@ -48,11 +48,28 @@ void OnlineHumanPlayer::connectToServer() {
 }
 
 void OnlineHumanPlayer::sendMove(int row, int col) {
-    //Write the move to the socket
+    int serverRun;
+    //Write the row to the socket
     int n = write(clientSocket, &row, sizeof(row));
     if (n == -1) {
         throw "Error writing row to socket";
     }
+
+    //check that server is running.
+    n = read(clientSocket, &serverRun, sizeof(serverRun));
+    if (n == -1) {
+        cout << "Error reading server run" << endl;
+    }
+    //if player disconnected.
+    if (n == 0) {
+        cout << "disconnected" << endl;
+    }
+    if (serverRun != 1) {
+        display->serverEnded();
+        exit(0);
+    }
+
+    //write col to the socket.
     n = write(clientSocket, &col, sizeof(col));
     if (n == -1) {
         throw "Error writing col to socket";
@@ -102,64 +119,65 @@ void OnlineHumanPlayer::sendCommand() {
     while (run) {
         //show commands.
         display->showCommands();
-        int dataLength = 0, twoWordsCommand = 0, spaceIndex = 0;
-        vector<string> args;
         char data[DATA_LENGTH];
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        //get data and write it to the server.
         cin.getline(data, sizeof(data));
+        connectToServer();
         //send data to server.
         int n = write(clientSocket, &data, sizeof(data));
         if (n == -1) {
             throw "Error writing end play to socket";
         }
-        //loop on the data from client.
-        for (int i = 0; i < DATA_LENGTH; i++) {
-            //update the length
-            dataLength++;
-            //check if the command ended and if it's one or two words.
-            if (data[i] == '\0') {
-                break;
-            } else if (data[i] == ' ') {
-                spaceIndex = i;
-                twoWordsCommand = 1;
-            }
+
+        //split the data and push it to args vector.
+        string str(data);
+        istringstream iss(str);
+        string command;
+        iss >> command;
+        vector<string> args;
+        while (iss) {
+            string arg;
+            iss >> arg;
+            args.push_back(arg);
         }
-        //if one word command.
-        if (twoWordsCommand == 0) {
-            //create command.
-            char command[dataLength];
-            //copy the command.
-            for (int i = 0; i < dataLength; i++) {
-                command[i] = data[i];
-            }
-            //active command (args empty).
-            executeCommand(string(command), &run);
-        } else { //if two words command.
-            char command[spaceIndex + 1];
-            char name[dataLength - (spaceIndex + 1)];
-            //copy the command.
-            for (int i = 0; i < spaceIndex; i++) {
-                command[i] = data[i];
-            }
-            command[spaceIndex] = '\0';
-            //copy the name.
-            for (int i = 0; i < dataLength - (spaceIndex + 1); i++) {
-                name[i] = data[i + spaceIndex + 1];
-            }
-            //insert the room name to args.
-            args.push_back(string(name));
-            //active command.
-            executeCommand(string(command), &run);
-        }
+
+        //active command.
+        executeCommand(command, &run);
     }
 }
 
 void OnlineHumanPlayer::executeCommand(string command, bool *run) {
+    int roomError;
     if (command.compare("start") == 0) {
-        display->waitingForOtherPlayer();
-        *run = false;
+        //see if room exist.
+        int n = read(clientSocket, &roomError, sizeof(roomError));
+        if (n == -1) {
+            throw "Error reading roomError";
+        }
+        if (n == 0) {
+            throw "disconnected";
+        }
+        if (roomError == -1) {
+            display->roomExist();
+        } else {
+            display->waitingForOtherPlayer();
+            *run = false;
+        }
     } else if (command.compare("join") == 0) {
-        *run = false;
+        //see if room exist.
+        int n = read(clientSocket, &roomError, sizeof(roomError));
+        if (n == -1) {
+            throw "Error reading roomError";
+        }
+        if (n == 0) {
+            throw "disconnected";
+        }
+        if (roomError == -1) {
+            display->noSuchRoom();
+        } else {
+            *run = false;
+        }
     } else if (command.compare("list_games") == 0) {
         int n;
         vector<string> gamesList;
