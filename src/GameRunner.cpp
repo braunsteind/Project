@@ -34,10 +34,14 @@ void GameRunner::run() {
             }
         }
     }
-    player1->endPlay();
-    //print the board.
-    display->showBoard(board);
-    //check for winner.
-    Color winner = rules->winner(board);
-    display->announceWinner(winner);
+
+    //if game wan't ended before time.
+    if (!rules->getEndGame()) {
+        player1->endPlay();
+        //print the board.
+        display->showBoard(board);
+        //check for winner.
+        Color winner = rules->winner(board);
+        display->announceWinner(winner);
+    }
 }

@@ -38,6 +38,8 @@ public:
     void roomExist() const;
 
     void noSuchRoom() const;
+
+    void invalidCommand() const;
 };
 
 #endif //EX2_CONSOLEDISPLAY_H

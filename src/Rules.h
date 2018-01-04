@@ -10,6 +10,11 @@ using namespace std;
 class Rules {
 public:
     /**
+     * Constructor.
+     */
+    Rules();
+
+    /**
      * Check where the player can put.
      * @param board The game board.
      * @param color The player color.
@@ -30,6 +35,20 @@ public:
      * @return The score of the player.
      */
     virtual int getScore(Color player, const Board &board) const;
+
+    /**
+     * End the game.
+     */
+    virtual void engGame();
+
+    /**
+     * Check if game ended before finished.
+     * @return The end game bool.
+     */
+    virtual bool getEndGame();
+
+protected:
+    bool endGame;
 };
 
 #endif //EX2_RULES_H

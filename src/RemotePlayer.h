@@ -5,6 +5,7 @@
 #include <iostream>
 #include <limits>
 #include <unistd.h>
+#include <cstdlib>
 
 class RemotePlayer : public Player {
 public:

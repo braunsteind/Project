@@ -1,7 +1,14 @@
 #include "RegularRules.h"
 
+RegularRules::RegularRules() : Rules() {}
+
 vector<Point> RegularRules::whereCanPut(const Board &board, Color color) const {
     vector<Point> moves;
+    //if end game.
+    if (endGame) {
+        return moves;
+    }
+
     //loop on each square
     for (int i = 0; i < board.getSize(); i++) {
         for (int j = 0; j < board.getSize(); j++) {

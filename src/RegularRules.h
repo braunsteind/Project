@@ -6,6 +6,11 @@
 
 class RegularRules : public Rules {
 public:
+    /**
+     * Constructor.
+     */
+    RegularRules();
+
     virtual vector<Point> whereCanPut(const Board &board, Color color) const;
 
 private:

@@ -89,11 +89,25 @@ public:
      */
     virtual void showGamesList(vector<std::string> gamesList) const = 0;
 
+    /**
+     * End the server.
+     */
     virtual void serverEnded() const = 0;
 
+    /**
+     * The room exist.
+     */
     virtual void roomExist() const = 0;
 
+    /**
+     * No such room.
+     */
     virtual void noSuchRoom() const = 0;
+
+    /**
+     * No such command.
+     */
+    virtual void invalidCommand() const = 0;
 };
 
 #endif //EX2_DISPLAY_H

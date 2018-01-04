@@ -8,6 +8,7 @@
 #include <netdb.h>
 #include <string.h>
 #include <unistd.h>
+#include <cstdlib>
 
 #define DATA_LENGTH 50
 

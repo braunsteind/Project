@@ -143,7 +143,7 @@ void ConsoleDisplay::waitingForOtherPlayerMove() const {
 }
 
 void ConsoleDisplay::showCommands() const {
-    cout << "Insert command (start, list_games, join, play, close, exit):" << endl;
+    cout << "Insert command (start, list_games, join):" << endl;
 }
 
 void ConsoleDisplay::showGamesList(vector<string> gamesList) const {
@@ -170,3 +170,6 @@ void ConsoleDisplay::noSuchRoom() const {
     cout << "There is no such room" << endl;
 }
 
+void ConsoleDisplay::invalidCommand() const {
+    cout << "Invalid command" << endl;
+}

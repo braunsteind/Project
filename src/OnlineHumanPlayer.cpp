@@ -66,7 +66,8 @@ void OnlineHumanPlayer::sendMove(int row, int col) {
     }
     if (serverRun != 1) {
         display->serverEnded();
-        exit(0);
+        rules->engGame();
+        return;
     }
 
     //write col to the socket.
@@ -91,11 +92,15 @@ Color OnlineHumanPlayer::getColorFromServer() {
     if (n == 0) {
         throw "Player disconnected";
     }
+
     //if the color is black.
     if (number == '1') {
         return Black;
     } else if (number == '2') {
         return White;
+    } else {
+        display->serverEnded();
+        exit(0);
     }
     throw "Error reading the color";
 }
@@ -123,6 +128,7 @@ void OnlineHumanPlayer::sendCommand() {
 
         //get data and write it to the server.
         cin.getline(data, sizeof(data));
+
         connectToServer();
         //send data to server.
         int n = write(clientSocket, &data, sizeof(data));
@@ -196,5 +202,7 @@ void OnlineHumanPlayer::executeCommand(string command, bool *run) {
         //remove the empty room name.
         gamesList.erase(gamesList.end());
         display->showGamesList(gamesList);
+    } else {
+        display->invalidCommand();
     }
 }

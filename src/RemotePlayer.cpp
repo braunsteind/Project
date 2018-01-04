@@ -20,7 +20,9 @@ Point RemotePlayer::playMove() {
     if (row == serverEnded) {
         //end the game.
         display->serverEnded();
-        exit(0);
+        rules->engGame();
+        //return any point.
+        return Point(0, 0);
     }
     n = read(clientSocket, &col, sizeof(row));
     if (n == -1) {

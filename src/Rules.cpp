@@ -1,5 +1,9 @@
 #include "Rules.h"
 
+Rules::Rules() {
+    endGame = false;
+}
+
 Color Rules::winner(const Board &board) const {
     int player1Score = getScore(Black, board);
     int player2Score = getScore(White, board);
@@ -25,4 +29,12 @@ int Rules::getScore(Color player, const Board &board) const {
         }
     }
     return score;
+}
+
+void Rules::engGame() {
+    endGame = true;
+}
+
+bool Rules::getEndGame() {
+    return endGame;
 }
